@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.cpacm.library.SliderAdapter;
+import net.cpacm.library.BaseSliderAdapter;
 
 /**
  * A PagerAdapter that wraps around another PagerAdapter to handle paging wrap-around.
@@ -19,13 +19,13 @@ public class InfinitePagerAdapter extends PagerAdapter {
     private static final String TAG = "InfinitePagerAdapter";
     private static final boolean DEBUG = false;
 
-    private SliderAdapter adapter;
+    private BaseSliderAdapter adapter;
 
-    public InfinitePagerAdapter(SliderAdapter adapter) {
+    public InfinitePagerAdapter(BaseSliderAdapter adapter) {
         this.adapter = adapter;
     }
 
-    public SliderAdapter getRealAdapter(){
+    public BaseSliderAdapter getRealAdapter(){
         return this.adapter;
     }
 

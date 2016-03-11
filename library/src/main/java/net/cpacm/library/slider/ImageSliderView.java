@@ -22,18 +22,16 @@ public class ImageSliderView extends BaseSliderView {
     private int mEmptyPlaceHolderRes;
 
     private ImageView imageView;
-    private ProgressBar progressBar;
 
 
-    protected ImageSliderView(Context context) {
+    public ImageSliderView(Context context) {
         super(context);
     }
 
     @Override
-    public View getView() {
+    public View setSliderView() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.default_image_slider, null);
         imageView = (ImageView) view.findViewById(R.id.image_item);
-        progressBar = (ProgressBar) view.findViewById(R.id.image_progress);
         if (mEmptyPlaceHolderRes != 0)
             imageView.setBackgroundResource(mEmptyPlaceHolderRes);
         bindSliderToPager(view);
@@ -52,7 +50,6 @@ public class ImageSliderView extends BaseSliderView {
     }
 
     /**
-     * offer i
      *
      * @return ImageView
      */

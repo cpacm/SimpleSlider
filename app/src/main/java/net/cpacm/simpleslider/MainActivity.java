@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+
+import net.cpacm.library.BaseSliderAdapter;
+import net.cpacm.library.slider.ImageSliderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private List<View> viewList;
-    private SliderAdapter sliderAdapter;
+    private List<ImageSliderView> viewList;
+    private BaseSliderAdapter sliderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +26,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        viewList = new ArrayList<>();
-        ImageView img;
-        LayoutInflater lf = getLayoutInflater().from(this);
+        sliderAdapter = new BaseSliderAdapter();
         int[] ids = {R.mipmap.android, R.mipmap.html5, R.mipmap.github, R.mipmap.ios, R.mipmap.cpacm, R.mipmap.java};
         for (int i = 0; i < ids.length; i++) {
-            View view = lf.inflate(R.layout.image_item, null);
-            img = (ImageView) view.findViewById(R.id.item_image);
-            img.setBackgroundResource(ids[i]);
-            viewList.add(view);
+            ImageSliderView imageSliderView = new ImageSliderView(getApplicationContext());
+            imageSliderView.empty(R.mipmap.ic_launcher);
+            imageSliderView.getImageView().setBackgroundResource(ids[i]);
+            sliderAdapter.addSlider(imageSliderView);
         }
-        sliderAdapter = new SliderAdapter(viewList);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(sliderAdapter);
     }

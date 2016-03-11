@@ -3,9 +3,6 @@ package net.cpacm.library.slider;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-
-import java.io.File;
 
 /**
  * When you want to make your own slider view, you must extends from this class.
@@ -20,8 +17,11 @@ public abstract class BaseSliderView {
 
     protected OnSliderClickListener mOnSliderClickListener;
 
+    private View sliderView;
+
     protected BaseSliderView(Context context) {
         mContext = context;
+        sliderView = setSliderView();
     }
 
     /**
@@ -73,7 +73,11 @@ public abstract class BaseSliderView {
      *
      * @return
      */
-    public abstract View getView();
+    public abstract View setSliderView();
+
+    public View getView() {
+        return sliderView;
+    }
 
     /**
      * when you have some extra information, please put it in this bundle.

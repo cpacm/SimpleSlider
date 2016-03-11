@@ -1,6 +1,5 @@
 package net.cpacm.library;
 
-import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,30 +7,29 @@ import android.view.ViewGroup;
 import net.cpacm.library.slider.BaseSliderView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A slider adapter
  */
-public class SliderAdapter extends PagerAdapter{
+public class BaseSliderAdapter extends PagerAdapter{
 
-    private Context mContext;
-    private ArrayList<BaseSliderView> mImageContents;
+    private List<BaseSliderView> mContents;
 
-    public SliderAdapter(Context context){
-        mContext = context;
-        mImageContents = new ArrayList<>();
+    public BaseSliderAdapter(){
+        mContents = new ArrayList<>();
     }
 
     public <T extends BaseSliderView> void addSlider(T slider){
-        mImageContents.add(slider);
+        mContents.add(slider);
         notifyDataSetChanged();
     }
 
     public BaseSliderView getSliderView(int position){
-        if(position < 0 || position >= mImageContents.size()){
+        if(position < 0 || position >= mContents.size()){
             return null;
         }else{
-            return mImageContents.get(position);
+            return mContents.get(position);
         }
     }
 
@@ -41,27 +39,27 @@ public class SliderAdapter extends PagerAdapter{
     }
 
     public <T extends BaseSliderView> void removeSlider(T slider){
-        if(mImageContents.contains(slider)){
-            mImageContents.remove(slider);
+        if(mContents.contains(slider)){
+            mContents.remove(slider);
             notifyDataSetChanged();
         }
     }
 
     public void removeSliderAt(int position){
-        if(mImageContents.size() > position){
-            mImageContents.remove(position);
+        if(mContents.size() > position){
+            mContents.remove(position);
             notifyDataSetChanged();
         }
     }
 
     public void removeAllSliders(){
-        mImageContents.clear();
+        mContents.clear();
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return mImageContents.size();
+        return mContents.size();
     }
 
     @Override
@@ -76,7 +74,7 @@ public class SliderAdapter extends PagerAdapter{
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        BaseSliderView b = mImageContents.get(position);
+        BaseSliderView b = mContents.get(position);
         View v = b.getView();
         container.addView(v);
         return v;

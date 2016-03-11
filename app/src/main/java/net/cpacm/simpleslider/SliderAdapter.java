@@ -4,6 +4,8 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.cpacm.library.slider.BaseSliderView;
+
 import java.util.List;
 
 /**
@@ -13,9 +15,9 @@ import java.util.List;
  */
 public class SliderAdapter extends PagerAdapter {
 
-    private List<View> viewList;
+    private List<? extends BaseSliderView> viewList;
 
-    public SliderAdapter(List<View> viewList) {
+    public SliderAdapter(List<? extends BaseSliderView> viewList) {
         this.viewList = viewList;
     }
 
@@ -31,12 +33,12 @@ public class SliderAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(viewList.get(position));
+        container.removeView((View) object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(viewList.get(position));
-        return viewList.get(position);
+        container.addView(viewList.get(position).getView());
+        return viewList.get(position).getView();
     }
 }
