@@ -12,10 +12,10 @@
     tools:context="net.cpacm.simpleslider.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <net.cpacm.library.SimpleSliderLayout
+        android:id="@+id/simple_slider_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
+    </net.cpacm.library.SimpleSliderLayout>
 </RelativeLayout>

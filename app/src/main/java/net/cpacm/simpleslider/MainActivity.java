@@ -8,16 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.cpacm.library.BaseSliderAdapter;
+import net.cpacm.library.SimpleSliderLayout;
+import net.cpacm.library.infinite.InfinitePagerAdapter;
 import net.cpacm.library.slider.ImageSliderView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPager viewPager;
+    private SimpleSliderLayout simpleSliderLayout;
     private List<ImageSliderView> viewList;
-    private BaseSliderAdapter sliderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +25,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        sliderAdapter = new BaseSliderAdapter();
+        simpleSliderLayout = (SimpleSliderLayout) findViewById(R.id.simple_slider_viewpager);
         int[] ids = {R.mipmap.android, R.mipmap.html5, R.mipmap.github, R.mipmap.ios, R.mipmap.cpacm, R.mipmap.java};
         for (int i = 0; i < ids.length; i++) {
             ImageSliderView imageSliderView = new ImageSliderView(getApplicationContext());
             imageSliderView.empty(R.mipmap.ic_launcher);
             imageSliderView.getImageView().setBackgroundResource(ids[i]);
-            sliderAdapter.addSlider(imageSliderView);
+            simpleSliderLayout.addSlider(imageSliderView);
         }
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(sliderAdapter);
     }
 
     @Override
