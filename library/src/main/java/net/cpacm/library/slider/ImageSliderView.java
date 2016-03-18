@@ -23,7 +23,6 @@ public class ImageSliderView extends BaseSliderView {
 
     private ImageView imageView;
 
-
     public ImageSliderView(Context context) {
         super(context);
     }

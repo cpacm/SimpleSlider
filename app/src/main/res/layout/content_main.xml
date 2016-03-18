@@ -13,9 +13,9 @@
     tools:showIn="@layout/activity_main">
 
     <net.cpacm.library.SimpleSliderLayout
-        android:id="@+id/simple_slider_viewpager"
+        android:id="@+id/simple_slider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="140dp">
 
     </net.cpacm.library.SimpleSliderLayout>
 </RelativeLayout>
