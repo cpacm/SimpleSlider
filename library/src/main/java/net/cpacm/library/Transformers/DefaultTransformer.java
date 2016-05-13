@@ -8,9 +8,4 @@ public class DefaultTransformer extends BaseTransformer {
 	protected void onTransform(View view, float position) {
 	}
 
-	@Override
-	public boolean isPagingEnabled() {
-		return true;
-	}
-
 }

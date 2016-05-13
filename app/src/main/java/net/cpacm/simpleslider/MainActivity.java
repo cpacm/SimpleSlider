@@ -1,7 +1,6 @@
 package net.cpacm.simpleslider;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,8 +11,6 @@ import net.cpacm.library.SimpleSliderLayout;
 import net.cpacm.library.slider.BaseSliderView;
 import net.cpacm.library.slider.ImageSliderView;
 import net.cpacm.library.slider.OnSliderClickListener;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

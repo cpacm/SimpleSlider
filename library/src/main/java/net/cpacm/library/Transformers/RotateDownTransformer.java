@@ -16,10 +16,5 @@ public class RotateDownTransformer extends BaseTransformer {
         ViewHelper.setPivotY(view,height);
         ViewHelper.setRotation(view,rotation);
 	}
-	
-	@Override
-	protected boolean isPagingEnabled() {
-		return true;
-	}
 
 }

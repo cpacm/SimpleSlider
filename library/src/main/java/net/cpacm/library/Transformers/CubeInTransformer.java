@@ -12,9 +12,4 @@ public class CubeInTransformer extends BaseTransformer {
         ViewHelper.setRotation(view,-90f * position);
 	}
 
-	@Override
-	public boolean isPagingEnabled() {
-		return true;
-	}
-
 }

@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import net.cpacm.library.Transformers.CubeInTransformer;
+import net.cpacm.library.Transformers.ZoomInTransformer;
+import net.cpacm.library.infinite.AnimationViewPager;
 import net.cpacm.library.infinite.InfinitePagerAdapter;
 import net.cpacm.library.slider.BaseSliderView;
 
@@ -25,8 +28,7 @@ public class SimpleSliderLayout extends RelativeLayout {
     private Context mContext;
     private InfinitePagerAdapter infinitePagerAdapter;
     private BaseSliderAdapter baseSliderAdapter;
-    private ViewPager simpleViewPager;
-
+    private AnimationViewPager simpleViewPager;
 
     /**
      * the duration between animation.
@@ -43,7 +45,6 @@ public class SimpleSliderLayout extends RelativeLayout {
             }
         }
     };
-
 
     public SimpleSliderLayout(Context context) {
         super(context);
@@ -64,12 +65,16 @@ public class SimpleSliderLayout extends RelativeLayout {
         mContext = context;
         View parent = LayoutInflater.from(mContext).inflate(R.layout.simple_slider_layout, this, true);
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SimpleSliderLayout);
-
-        simpleViewPager = (ViewPager) parent.findViewById(R.id.simple_slider_viewpager);
+        simpleViewPager = (AnimationViewPager) parent.findViewById(R.id.simple_slider_viewpager);
         baseSliderAdapter = new BaseSliderAdapter();
         infinitePagerAdapter = new InfinitePagerAdapter(baseSliderAdapter);
         setCycling(true);
         setAutoCycling(true);
+        setPageTransformer(new CubeInTransformer());
+    }
+
+    public void setPageTransformer(ViewPager.PageTransformer transformer) {
+        simpleViewPager.setPageTransformer(true, transformer);
     }
 
     /**
@@ -184,4 +189,6 @@ public class SimpleSliderLayout extends RelativeLayout {
     public void moveNextPosition() {
         moveNextPosition(true);
     }
+
+
 }

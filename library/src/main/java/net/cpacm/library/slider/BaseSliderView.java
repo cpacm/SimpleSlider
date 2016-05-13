@@ -12,11 +12,8 @@ import android.view.View;
 public abstract class BaseSliderView {
 
     protected Context mContext;
-
     private Bundle mBundle;
-
     protected OnSliderClickListener mOnSliderClickListener;
-
     private View sliderView;
 
     protected BaseSliderView(Context context) {
@@ -34,7 +31,6 @@ public abstract class BaseSliderView {
         mBundle = bundle;
         return this;
     }
-
 
     public Context getContext() {
         return mContext;

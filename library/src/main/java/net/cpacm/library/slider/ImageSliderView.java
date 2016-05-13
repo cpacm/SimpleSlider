@@ -15,7 +15,6 @@ import net.cpacm.library.R;
  */
 public class ImageSliderView extends BaseSliderView {
 
-
     /**
      * Empty imageView placeholder.
      */

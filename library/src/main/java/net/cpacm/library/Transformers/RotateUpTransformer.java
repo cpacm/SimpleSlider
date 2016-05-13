@@ -16,10 +16,5 @@ public class RotateUpTransformer extends BaseTransformer {
         ViewHelper.setTranslationX(view,0f);
         ViewHelper.setRotation(view,rotation);
 	}
-	
-	@Override
-	protected boolean isPagingEnabled() {
-		return true;
-	}
 
 }
