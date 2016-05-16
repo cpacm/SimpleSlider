@@ -12,8 +12,9 @@ public class FixedSpeedScroller extends Scroller {
 
     private int mDuration = 1000;
 
-    public FixedSpeedScroller(Context context) {
+    public FixedSpeedScroller(Context context, int period) {
         super(context);
+        mDuration = period;
     }
 
     public FixedSpeedScroller(Context context, Interpolator interpolator) {
@@ -41,21 +42,4 @@ public class FixedSpeedScroller extends Scroller {
         mDuration = duration;
     }
 
-    /**
-     * 利用反射修改ViewPager的Scroller的滑动速度
-     *
-     * @param mViewPager
-     */
-    public void insteadScroll(ViewPager mViewPager) {
-        try {
-            Field field = ViewPager.class.getDeclaredField("mScroller");
-            field.setAccessible(true);
-            FixedSpeedScroller scroller = new FixedSpeedScroller(mViewPager.getContext(),
-                    new AccelerateInterpolator());
-            field.set(mViewPager, scroller);
-            scroller.setDuration(2000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

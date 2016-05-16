@@ -7,14 +7,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import net.cpacm.library.SimpleSliderLayout;
+import net.cpacm.library.Transformers.FlipPageViewTransformer;
+import net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
 import net.cpacm.library.slider.BaseSliderView;
 import net.cpacm.library.slider.ImageSliderView;
+import net.cpacm.library.animation.OnAnimationListener;
 import net.cpacm.library.slider.OnSliderClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private SimpleSliderLayout simpleSliderLayout;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +30,50 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         simpleSliderLayout = (SimpleSliderLayout) findViewById(R.id.simple_slider);
         int[] ids = {R.mipmap.android, R.mipmap.html5, R.mipmap.github, R.mipmap.ios, R.mipmap.cpacm, R.mipmap.java};
+        String[] strs = {"android", "h5", "github", "ios", "cpacm", "java"};
         for (int i = 0; i < ids.length; i++) {
             ImageSliderView imageSliderView = new ImageSliderView(getApplicationContext());
             imageSliderView.empty(R.mipmap.ic_launcher);
+            //imageLoader.displayImage("", imageSliderView.getImageView());
             imageSliderView.getImageView().setBackgroundResource(ids[i]);
             imageSliderView.bundle(new Bundle());
             imageSliderView.getBundle()
-                    .putString("user", "cpacm");
+                    .putString("type", strs[i]);
             imageSliderView.setOnSliderClickListener(new OnSliderClickListener() {
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
-                    Log.d("simple", slider.getBundle().getString("user"));
+                    Log.d("simpleSlider", slider.getBundle().getString("type"));
                 }
             });
             simpleSliderLayout.addSlider(imageSliderView);
+            simpleSliderLayout.setSliderTransformDuration(2000);
+            simpleSliderLayout.setPageTransformer(new FlipPageViewTransformer());
         }
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circle_indicator);
+        simpleSliderLayout.setViewPagerIndicator(circlePageIndicator);
+
+        simpleSliderLayout.setAnimationListener(new OnAnimationListener() {
+            @Override
+            public void onNextAnimationStart(BaseSliderView slider) {
+                Log.d("simpleSlider", "next_start:" + slider.getBundle().getString("type"));
+            }
+
+            @Override
+            public void onNextAnimationEnd(BaseSliderView slider) {
+                Log.d("simpleSlider", "next_end:" + slider.getBundle().getString("type"));
+            }
+
+            @Override
+            public void onPreAnimationStart(BaseSliderView slider) {
+                Log.d("simpleSlider", "pre_start:" + slider.getBundle().getString("type"));
+            }
+
+            @Override
+            public void onPreAnimationEnd(BaseSliderView slider) {
+                Log.d("simpleSlider", "pre_end:" + slider.getBundle().getString("type"));
+            }
+        });
     }
 
     @Override

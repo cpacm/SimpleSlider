@@ -18,4 +18,14 @@
         android:layout_height="140dp">
 
     </net.cpacm.library.SimpleSliderLayout>
+
+    <net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator
+        android:id="@+id/circle_indicator"
+        android:layout_below="@+id/simple_slider"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
 </RelativeLayout>

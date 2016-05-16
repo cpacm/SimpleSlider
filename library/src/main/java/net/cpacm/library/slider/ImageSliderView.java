@@ -48,6 +48,7 @@ public class ImageSliderView extends BaseSliderView {
     }
 
     /**
+     * get ImageView for ImageLoader
      *
      * @return ImageView
      */

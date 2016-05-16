@@ -1,15 +1,7 @@
 package net.cpacm.library.Transformers;
 
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-
-import net.cpacm.library.animation.BaseAnimationInterface;
-import net.cpacm.library.slider.BaseSliderView;
-import net.cpacm.library.slider.OnAnimationListener;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * This is all transformers father.
@@ -31,19 +23,7 @@ public abstract class BaseTransformer implements ViewPager.PageTransformer {
 
     @Override
     public void transformPage(View view, float position) {
-        final float width = view.getWidth();
-
-        ViewHelper.setRotationX(view,0);
-        ViewHelper.setRotationY(view,0);
-        ViewHelper.setRotation(view,0);
-        ViewHelper.setScaleX(view,1);
-        ViewHelper.setScaleY(view,1);
-        ViewHelper.setPivotX(view,0);
-        ViewHelper.setPivotY(view,0);
-        ViewHelper.setTranslationY(view,0);
-
         onTransform(view, position);
-
     }
 
 }

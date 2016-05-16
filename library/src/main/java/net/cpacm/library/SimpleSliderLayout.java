@@ -7,16 +7,20 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
 
-import net.cpacm.library.Transformers.CubeInTransformer;
-import net.cpacm.library.Transformers.ZoomInTransformer;
+import net.cpacm.library.indicator.PageIndicator;
 import net.cpacm.library.infinite.AnimationViewPager;
+import net.cpacm.library.infinite.FixedSpeedScroller;
 import net.cpacm.library.infinite.InfinitePagerAdapter;
 import net.cpacm.library.slider.BaseSliderView;
+import net.cpacm.library.animation.OnAnimationListener;
+
+import java.lang.reflect.Field;
 
 /**
  * simple slider
@@ -29,6 +33,8 @@ public class SimpleSliderLayout extends RelativeLayout {
     private InfinitePagerAdapter infinitePagerAdapter;
     private BaseSliderAdapter baseSliderAdapter;
     private AnimationViewPager simpleViewPager;
+    private boolean autoCycling = true, isCycling = true;
+    private PageIndicator pageIndicator;
 
     /**
      * the duration between animation.
@@ -70,11 +76,56 @@ public class SimpleSliderLayout extends RelativeLayout {
         infinitePagerAdapter = new InfinitePagerAdapter(baseSliderAdapter);
         setCycling(true);
         setAutoCycling(true);
-        setPageTransformer(new CubeInTransformer());
     }
 
     public void setPageTransformer(ViewPager.PageTransformer transformer) {
         simpleViewPager.setPageTransformer(true, transformer);
+    }
+
+    public void setAnimationListener(OnAnimationListener listener) {
+        simpleViewPager.setAnimationListener(listener);
+    }
+
+    /**
+     * 利用反射修改ViewPager中Scroller的滑动速度
+     *
+     * @param period       时长
+     * @param interpolator 渲染器
+     */
+    public void setSliderTransformDuration(int period, Interpolator interpolator) {
+        try {
+            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(simpleViewPager.getContext(), interpolator, period);
+            mScroller.set(simpleViewPager, scroller);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void setSliderTransformDuration(int period) {
+        try {
+            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(simpleViewPager.getContext(), period);
+            mScroller.set(simpleViewPager, scroller);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void setViewPagerIndicator(PageIndicator pageIndicator) {
+        this.pageIndicator = pageIndicator;
+        pageIndicator.setViewPager(simpleViewPager);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE)
+            if (autoCycling) stopAutoCycling();
+        if (event.getAction() == MotionEvent.ACTION_UP)
+            if (autoCycling) startAutoCycling();
+        return super.dispatchTouchEvent(event);
     }
 
     /**
@@ -84,6 +135,7 @@ public class SimpleSliderLayout extends RelativeLayout {
      * @param isCycling
      */
     private void setCycling(boolean isCycling) {
+        this.isCycling = isCycling;
         if (isCycling) cycling();
         else stopCycling();
     }
@@ -97,12 +149,13 @@ public class SimpleSliderLayout extends RelativeLayout {
     }
 
     /**
-     * if auto cycling
+     * if auto isCycling
      * 是否自动循环
      *
      * @param autoCycling
      */
     private void setAutoCycling(boolean autoCycling) {
+        this.autoCycling = autoCycling;
         if (autoCycling)
             startAutoCycling();
         else
