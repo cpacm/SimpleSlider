@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         simpleSliderLayout = (SimpleSliderLayout) findViewById(R.id.simple_slider);
         int[] ids = {R.mipmap.android, R.mipmap.html5, R.mipmap.github, R.mipmap.ios, R.mipmap.cpacm, R.mipmap.java};
         String[] strs = {"android", "h5", "github", "ios", "cpacm", "java"};
-        for (int i = 0; i < ids.length; i++) {
+        for (int i = 0; i < strs.length; i++) {
             ImageSliderView imageSliderView = new ImageSliderView(getApplicationContext());
             imageSliderView.empty(R.mipmap.ic_launcher);
             //imageLoader.displayImage("", imageSliderView.getImageView());

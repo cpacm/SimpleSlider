@@ -134,17 +134,18 @@ public class SimpleSliderLayout extends RelativeLayout {
      *
      * @param isCycling
      */
-    private void setCycling(boolean isCycling) {
+    public void setCycling(boolean isCycling) {
         this.isCycling = isCycling;
+        if (baseSliderAdapter.getCount() < 4) return;
         if (isCycling) cycling();
         else stopCycling();
     }
 
-    public void cycling() {
+    private void cycling() {
         simpleViewPager.setAdapter(infinitePagerAdapter);
     }
 
-    public void stopCycling() {
+    private void stopCycling() {
         simpleViewPager.setAdapter(baseSliderAdapter);
     }
 
@@ -154,20 +155,18 @@ public class SimpleSliderLayout extends RelativeLayout {
      *
      * @param autoCycling
      */
-    private void setAutoCycling(boolean autoCycling) {
+    public void setAutoCycling(boolean autoCycling) {
         this.autoCycling = autoCycling;
-        if (autoCycling)
-            startAutoCycling();
-        else
-            stopAutoCycling();
+        if (autoCycling) startAutoCycling();
+        else stopAutoCycling();
     }
 
-    public void startAutoCycling() {
+    private void startAutoCycling() {
         sliderHandler.removeMessages(0);
         sliderHandler.sendEmptyMessageDelayed(0, sliderDuration);
     }
 
-    public void stopAutoCycling() {
+    private void stopAutoCycling() {
         sliderHandler.removeMessages(0);
     }
 
@@ -177,14 +176,23 @@ public class SimpleSliderLayout extends RelativeLayout {
 
     public <T extends BaseSliderView> void addSlider(T baseSlider) {
         baseSliderAdapter.addSlider(baseSlider);
+        judgeCycing();
     }
 
     public void removeSlider(int position) {
         baseSliderAdapter.removeSliderAt(position);
+        judgeCycing();
     }
 
     public <T extends BaseSliderView> void removeSlider(T baseSlider) {
         baseSliderAdapter.removeSlider(baseSlider);
+        judgeCycing();
+    }
+
+    private void judgeCycing() {
+        if (baseSliderAdapter.getCount() < 4) stopCycling();
+        else if (isCycling) cycling();
+        else stopCycling();
     }
 
     public void addOnPageChangeListener(final ViewPager.OnPageChangeListener listener) {
@@ -216,10 +224,6 @@ public class SimpleSliderLayout extends RelativeLayout {
         simpleViewPager.setCurrentItem(simpleViewPager.getCurrentItem() - 1, smooth);
     }
 
-    public void movePrevPosition() {
-        movePrevPosition(true);
-    }
-
     /**
      * move to next slide.
      */
@@ -227,8 +231,9 @@ public class SimpleSliderLayout extends RelativeLayout {
 
         if (getRealAdapter() == null)
             throw new IllegalStateException("You did not set a slider adapter");
-
-        simpleViewPager.setCurrentItem(simpleViewPager.getCurrentItem() + 1, smooth);
+        if (baseSliderAdapter.getCount() < 4 && simpleViewPager.getCurrentItem() == baseSliderAdapter.getCount() - 1)
+            simpleViewPager.setCurrentItem(0, false);
+        else simpleViewPager.setCurrentItem(simpleViewPager.getCurrentItem() + 1, smooth);
     }
 
     private BaseSliderAdapter getRealAdapter() {
@@ -242,6 +247,4 @@ public class SimpleSliderLayout extends RelativeLayout {
     public void moveNextPosition() {
         moveNextPosition(true);
     }
-
-
 }

@@ -13,23 +13,24 @@ import java.util.List;
 /**
  * A slider adapter
  */
-public class BaseSliderAdapter extends PagerAdapter{
+public class BaseSliderAdapter extends PagerAdapter {
 
     private List<BaseSliderView> mContents;
+    private boolean hasRepeatView = false;
 
-    public BaseSliderAdapter(){
+    public BaseSliderAdapter() {
         mContents = new ArrayList<>();
     }
 
-    public <T extends BaseSliderView> void addSlider(T slider){
+    public <T extends BaseSliderView> void addSlider(T slider) {
         mContents.add(slider);
         notifyDataSetChanged();
     }
 
-    public BaseSliderView getSliderView(int position){
-        if(position < 0 || position >= mContents.size()){
+    public BaseSliderView getSliderView(int position) {
+        if (position < 0 || position >= mContents.size()) {
             return null;
-        }else{
+        } else {
             return mContents.get(position);
         }
     }
@@ -39,21 +40,21 @@ public class BaseSliderAdapter extends PagerAdapter{
         return POSITION_NONE;
     }
 
-    public <T extends BaseSliderView> void removeSlider(T slider){
-        if(mContents.contains(slider)){
+    public <T extends BaseSliderView> void removeSlider(T slider) {
+        if (mContents.contains(slider)) {
             mContents.remove(slider);
             notifyDataSetChanged();
         }
     }
 
-    public void removeSliderAt(int position){
-        if(mContents.size() > position){
+    public void removeSliderAt(int position) {
+        if (mContents.size() > position) {
             mContents.remove(position);
             notifyDataSetChanged();
         }
     }
 
-    public void removeAllSliders(){
+    public void removeAllSliders() {
         mContents.clear();
         notifyDataSetChanged();
     }
@@ -65,7 +66,7 @@ public class BaseSliderAdapter extends PagerAdapter{
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view==object;
+        return view == object;
     }
 
     @Override

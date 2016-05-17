@@ -17,15 +17,20 @@
         android:layout_width="match_parent"
         android:layout_height="140dp">
 
-    </net.cpacm.library.SimpleSliderLayout>
+        <net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator
+            android:id="@+id/circle_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorPrimaryDark"
+            app:fillColor="@color/default_title_indicator_footer_color"
+            app:paddingEnd="5dp"
+            app:paddingStart="5dp"
+            app:strokeWidth="1dp" />
 
-    <net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator
-        android:id="@+id/circle_indicator"
-        android:layout_below="@+id/simple_slider"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    </net.cpacm.library.SimpleSliderLayout>
 
 
 </RelativeLayout>
