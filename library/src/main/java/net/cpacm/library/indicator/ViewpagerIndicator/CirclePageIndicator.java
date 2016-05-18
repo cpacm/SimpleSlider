@@ -208,6 +208,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
         int count = mViewPager.getAdapter().getCount();
         if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
             count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+            mCurrentPage = mCurrentPage % count;
         }
         if (count == 0) {
             return;

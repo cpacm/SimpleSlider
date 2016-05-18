@@ -15,6 +15,7 @@ public abstract class BaseSliderView {
     private Bundle mBundle;
     protected OnSliderClickListener mOnSliderClickListener;
     private View sliderView;
+    private String pageTitle;
 
     protected BaseSliderView(Context context) {
         mContext = context;
@@ -84,4 +85,11 @@ public abstract class BaseSliderView {
         return mBundle;
     }
 
+    public String getPageTitle() {
+        return pageTitle;
+    }
+
+    public void setPageTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
+    }
 }

@@ -7,11 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.cpacm.library.BaseSliderAdapter;
 import net.cpacm.library.slider.BaseSliderView;
-
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * A PagerAdapter that wraps around another PagerAdapter to handle paging wrap-around.
@@ -39,6 +35,11 @@ public class InfinitePagerAdapter extends PagerAdapter {
 
     public BaseSliderAdapter getRealAdapter() {
         return this.adapter;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return adapter.getPageTitle(position % getRealCount());
     }
 
     @Override

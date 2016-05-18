@@ -1,9 +1,10 @@
-package net.cpacm.library;
+package net.cpacm.library.infinite;
 
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import net.cpacm.library.slider.BaseSliderView;
 
@@ -57,6 +58,15 @@ public class BaseSliderAdapter extends PagerAdapter {
     public void removeAllSliders() {
         mContents.clear();
         notifyDataSetChanged();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (position < 0 || position >= mContents.size()) {
+            return null;
+        } else {
+            return mContents.get(position).getPageTitle();
+        }
     }
 
     @Override

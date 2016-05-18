@@ -28,6 +28,10 @@ import android.widget.ImageView;
 
 import net.cpacm.library.R;
 import net.cpacm.library.indicator.PageIndicator;
+import net.cpacm.library.infinite.InfinitePagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -43,6 +47,7 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
     private OnPageChangeListener mListener;
     private Runnable mIconSelector;
     private int mSelectedIndex;
+    private List<Integer> iconList;
 
     public IconPageIndicator(Context context) {
         this(context, null);
@@ -51,9 +56,9 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
     public IconPageIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
         setHorizontalScrollBarEnabled(false);
-
         mIconsLayout = new IcsLinearLayout(context, R.attr.vpiIconPageIndicatorStyle);
         addView(mIconsLayout, new LayoutParams(WRAP_CONTENT, MATCH_PARENT, Gravity.CENTER));
+        iconList = new ArrayList<>();
     }
 
     private void animateToIcon(final int position) {
@@ -116,31 +121,54 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
             return;
         }
         if (mViewPager != null) {
-            mViewPager.setOnPageChangeListener(null);
+            mViewPager.addOnPageChangeListener(null);
         }
         PagerAdapter adapter = view.getAdapter();
         if (adapter == null) {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
         mViewPager = view;
-        view.setOnPageChangeListener(this);
+        view.addOnPageChangeListener(this);
         notifyDataSetChanged();
     }
 
     public void notifyDataSetChanged() {
+        if (iconList.size() == 0) return;
         mIconsLayout.removeAllViews();
-        IconPagerAdapter iconAdapter = (IconPagerAdapter) mViewPager.getAdapter();
-        int count = iconAdapter.getCount();
+        int count = mViewPager.getAdapter().getCount();
+        if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
+            count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+        }
         for (int i = 0; i < count; i++) {
             ImageView view = new ImageView(getContext(), null, R.attr.vpiIconPageIndicatorStyle);
-            view.setImageResource(iconAdapter.getIconResId(i));
+            view.setImageResource(iconList.get(i%iconList.size()));
             mIconsLayout.addView(view);
-        }
-        if (mSelectedIndex > count) {
-            mSelectedIndex = count - 1;
         }
         setCurrentItem(mSelectedIndex);
         requestLayout();
+    }
+
+    /**
+     * set icon ids
+     *
+     * @param ids
+     */
+    public void setIconRes(int[] ids) {
+        iconList.clear();
+        for (Integer id : ids)
+            iconList.add(id);
+        if (mViewPager != null) notifyDataSetChanged();
+    }
+
+    /**
+     * set icon ids
+     *
+     * @param ids
+     */
+    public void setIconRes(List<Integer> ids) {
+        iconList.clear();
+        iconList.addAll(ids);
+        if (mViewPager != null) notifyDataSetChanged();
     }
 
     @Override
@@ -155,15 +183,19 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
             throw new IllegalStateException("ViewPager has not been bound.");
         }
         mSelectedIndex = item;
+        if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
+            int count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+            mSelectedIndex = item % count;
+        }
         mViewPager.setCurrentItem(item);
 
         int tabCount = mIconsLayout.getChildCount();
         for (int i = 0; i < tabCount; i++) {
             View child = mIconsLayout.getChildAt(i);
-            boolean isSelected = (i == item);
+            boolean isSelected = (i == mSelectedIndex);
             child.setSelected(isSelected);
             if (isSelected) {
-                animateToIcon(item);
+                animateToIcon(mSelectedIndex);
             }
         }
     }

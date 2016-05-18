@@ -34,6 +34,7 @@ import android.view.ViewConfiguration;
 
 import net.cpacm.library.R;
 import net.cpacm.library.indicator.PageIndicator;
+import net.cpacm.library.infinite.InfinitePagerAdapter;
 
 /**
  * Draws a line for each page. The current page line is colored differently
@@ -91,7 +92,7 @@ public class LinePageIndicator extends View implements PageIndicator {
 
         Drawable background = a.getDrawable(R.styleable.LinePageIndicator_android_background);
         if (background != null) {
-          setBackgroundDrawable(background);
+            setBackgroundDrawable(background);
         }
 
         a.recycle();
@@ -163,7 +164,11 @@ public class LinePageIndicator extends View implements PageIndicator {
         if (mViewPager == null) {
             return;
         }
-        final int count = mViewPager.getAdapter().getCount();
+        int count = mViewPager.getAdapter().getCount();
+        if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
+            count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+            mCurrentPage = mCurrentPage % count;
+        }
         if (count == 0) {
             return;
         }
@@ -193,6 +198,7 @@ public class LinePageIndicator extends View implements PageIndicator {
         }
     }
 
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (super.onTouchEvent(ev)) {
             return true;
@@ -232,7 +238,10 @@ public class LinePageIndicator extends View implements PageIndicator {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (!mIsDragging) {
-                    final int count = mViewPager.getAdapter().getCount();
+                    int count = mViewPager.getAdapter().getCount();
+                    if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
+                        count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+                    }
                     final int width = getWidth();
                     final float halfWidth = width / 2f;
                     final float sixthWidth = width / 6f;
@@ -347,8 +356,7 @@ public class LinePageIndicator extends View implements PageIndicator {
     /**
      * Determines the width of this view
      *
-     * @param measureSpec
-     *            A measureSpec packed into an int
+     * @param measureSpec A measureSpec packed into an int
      * @return The width of the view, honoring constraints from measureSpec
      */
     private int measureWidth(int measureSpec) {
@@ -368,14 +376,13 @@ public class LinePageIndicator extends View implements PageIndicator {
                 result = Math.min(result, specSize);
             }
         }
-        return (int)Math.ceil(result);
+        return (int) Math.ceil(result);
     }
 
     /**
      * Determines the height of this view
      *
-     * @param measureSpec
-     *            A measureSpec packed into an int
+     * @param measureSpec A measureSpec packed into an int
      * @return The height of the view, honoring constraints from measureSpec
      */
     private int measureHeight(int measureSpec) {
@@ -394,12 +401,12 @@ public class LinePageIndicator extends View implements PageIndicator {
                 result = Math.min(result, specSize);
             }
         }
-        return (int)Math.ceil(result);
+        return (int) Math.ceil(result);
     }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        SavedState savedState = (SavedState)state;
+        SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
         mCurrentPage = savedState.currentPage;
         requestLayout();

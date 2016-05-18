@@ -33,6 +33,7 @@ import android.view.ViewConfiguration;
 
 import net.cpacm.library.R;
 import net.cpacm.library.indicator.PageIndicator;
+import net.cpacm.library.infinite.InfinitePagerAdapter;
 
 /**
  * Draws a line for each page. The current page line is colored differently
@@ -61,16 +62,17 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     private boolean mIsDragging;
 
     private final Runnable mFadeRunnable = new Runnable() {
-      @Override public void run() {
-        if (!mFades) return;
+        @Override
+        public void run() {
+            if (!mFades) return;
 
-        final int alpha = Math.max(mPaint.getAlpha() - mFadeBy, 0);
-        mPaint.setAlpha(alpha);
-        invalidate();
-        if (alpha > 0) {
-          postDelayed(this, FADE_FRAME_MS);
+            final int alpha = Math.max(mPaint.getAlpha() - mFadeBy, 0);
+            mPaint.setAlpha(alpha);
+            invalidate();
+            if (alpha > 0) {
+                postDelayed(this, FADE_FRAME_MS);
+            }
         }
-      }
     };
 
     public UnderlinePageIndicator(Context context) {
@@ -103,7 +105,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
 
         Drawable background = a.getDrawable(R.styleable.UnderlinePageIndicator_android_background);
         if (background != null) {
-          setBackgroundDrawable(background);
+            setBackgroundDrawable(background);
         }
 
         a.recycle();
@@ -162,13 +164,12 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         if (mViewPager == null) {
             return;
         }
-        final int count = mViewPager.getAdapter().getCount();
-        if (count == 0) {
-            return;
+        int count = mViewPager.getAdapter().getCount();
+        if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
+            count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+            mCurrentPage = mCurrentPage % count;
         }
-
-        if (mCurrentPage >= count) {
-            setCurrentItem(count - 1);
+        if (count == 0) {
             return;
         }
 
@@ -179,6 +180,11 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         final float top = getPaddingTop();
         final float bottom = getHeight() - getPaddingBottom();
         canvas.drawRect(left, top, right, bottom, mPaint);
+        if (mCurrentPage == count - 1) {
+            float left2 = paddingLeft;
+            float right2 = left2 + pageWidth * ( mPositionOffset);
+            canvas.drawRect(left2, top, right2, bottom, mPaint);
+        }
     }
 
     public boolean onTouchEvent(MotionEvent ev) {
@@ -220,7 +226,11 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (!mIsDragging) {
-                    final int count = mViewPager.getAdapter().getCount();
+                    int count = mViewPager.getAdapter().getCount();
+                    if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
+                        count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+                        mCurrentPage = mCurrentPage % count;
+                    }
                     final int width = getWidth();
                     final float halfWidth = width / 2f;
                     final float sixthWidth = width / 6f;
@@ -271,16 +281,17 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         }
         if (mViewPager != null) {
             //Clear us from the old pager.
-            mViewPager.setOnPageChangeListener(null);
+            mViewPager.addOnPageChangeListener(null);
         }
         if (viewPager.getAdapter() == null) {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
         mViewPager = viewPager;
-        mViewPager.setOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
         invalidate();
         post(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 if (mFades) {
                     post(mFadeRunnable);
                 }
@@ -357,7 +368,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        SavedState savedState = (SavedState)state;
+        SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
         mCurrentPage = savedState.currentPage;
         requestLayout();

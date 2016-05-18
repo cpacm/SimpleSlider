@@ -11,7 +11,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import net.cpacm.library.SimpleSliderLayout;
 import net.cpacm.library.Transformers.FlipPageViewTransformer;
+import net.cpacm.library.Transformers.ZoomOutSlideTransformer;
 import net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
+import net.cpacm.library.indicator.ViewpagerIndicator.IconPageIndicator;
+import net.cpacm.library.indicator.ViewpagerIndicator.LinePageIndicator;
+import net.cpacm.library.indicator.ViewpagerIndicator.TitlePageIndicator;
 import net.cpacm.library.slider.BaseSliderView;
 import net.cpacm.library.slider.ImageSliderView;
 import net.cpacm.library.animation.OnAnimationListener;
@@ -21,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     private SimpleSliderLayout simpleSliderLayout;
     private ImageLoader imageLoader = ImageLoader.getInstance();
+    protected static final int[] ICONS = new int[]{
+            R.drawable.perm_group_calendar,
+            R.drawable.perm_group_camera,
+            R.drawable.perm_group_device_alarms,
+            R.drawable.perm_group_location
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             imageSliderView.empty(R.mipmap.ic_launcher);
             //imageLoader.displayImage("", imageSliderView.getImageView());
             imageSliderView.getImageView().setBackgroundResource(ids[i]);
+            imageSliderView.setPageTitle(strs[i]);
             imageSliderView.bundle(new Bundle());
             imageSliderView.getBundle()
                     .putString("type", strs[i]);
@@ -47,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
             });
             simpleSliderLayout.addSlider(imageSliderView);
             simpleSliderLayout.setSliderTransformDuration(2000);
-            simpleSliderLayout.setPageTransformer(new FlipPageViewTransformer());
+            simpleSliderLayout.setPageTransformer(new ZoomOutSlideTransformer());
         }
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circle_indicator);
-        simpleSliderLayout.setViewPagerIndicator(circlePageIndicator);
+        TitlePageIndicator tabPageIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
+        simpleSliderLayout.setViewPagerIndicator(tabPageIndicator);
 
         simpleSliderLayout.setAnimationListener(new OnAnimationListener() {
             @Override

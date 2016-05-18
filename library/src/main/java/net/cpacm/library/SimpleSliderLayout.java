@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 
 import net.cpacm.library.indicator.PageIndicator;
 import net.cpacm.library.infinite.AnimationViewPager;
+import net.cpacm.library.infinite.BaseSliderAdapter;
 import net.cpacm.library.infinite.FixedSpeedScroller;
 import net.cpacm.library.infinite.InfinitePagerAdapter;
 import net.cpacm.library.slider.BaseSliderView;
