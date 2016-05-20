@@ -74,46 +74,6 @@
         <attr name="android:background"/>
     </declare-styleable>
 
-    <declare-styleable name="TitlePageIndicator">
-        <!-- Screen edge padding. -->
-        <attr name="clipPadding" format="dimension" />
-        <!-- Color of the footer line and indicator. -->
-        <attr name="footerColor" format="color" />
-        <!-- Height of the footer line. -->
-        <attr name="footerLineHeight" format="dimension" />
-        <!-- Style of the indicator. Default is triangle. -->
-        <attr name="footerIndicatorStyle">
-            <enum name="none" value="0" />
-            <enum name="triangle" value="1" />
-            <enum name="underline" value="2" />
-        </attr>
-        <!-- Height of the indicator above the footer line. -->
-        <attr name="footerIndicatorHeight" format="dimension" />
-        <!-- Left and right padding of the underline indicator. -->
-        <attr name="footerIndicatorUnderlinePadding" format="dimension" />
-        <!-- Padding between the bottom of the title and the footer. -->
-        <attr name="footerPadding" format="dimension" />
-        <!-- Position of the line. -->
-        <attr name="linePosition">
-            <enum name="bottom" value="0"/>
-            <enum name="top" value="1"/>
-        </attr>
-        <!-- Color of the selected title. -->
-        <attr name="selectedColor" />
-        <!-- Whether or not the selected item is displayed as bold. -->
-        <attr name="selectedBold" format="boolean" />
-        <!-- Color of regular titles. -->
-        <attr name="android:textColor" />
-        <!-- Size of title text. -->
-        <attr name="android:textSize" />
-        <!-- Padding between titles when bumping into each other. -->
-        <attr name="titlePadding" format="dimension" />
-        <!-- Padding between titles and the top of the View. -->
-        <attr name="topPadding" format="dimension" />
-        <!-- View background -->
-        <attr name="android:background"/>
-    </declare-styleable>
-
     <declare-styleable name="UnderlinePageIndicator">
         <!-- Whether or not the selected indicator fades. -->
         <attr name="fades" format="boolean" />

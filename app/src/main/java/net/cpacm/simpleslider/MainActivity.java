@@ -12,10 +12,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import net.cpacm.library.SimpleSliderLayout;
 import net.cpacm.library.Transformers.FlipPageViewTransformer;
 import net.cpacm.library.Transformers.ZoomOutSlideTransformer;
+import net.cpacm.library.indicator.SpringIndicator.SpringIndicator;
 import net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
-import net.cpacm.library.indicator.ViewpagerIndicator.IconPageIndicator;
-import net.cpacm.library.indicator.ViewpagerIndicator.LinePageIndicator;
-import net.cpacm.library.indicator.ViewpagerIndicator.TitlePageIndicator;
 import net.cpacm.library.slider.BaseSliderView;
 import net.cpacm.library.slider.ImageSliderView;
 import net.cpacm.library.animation.OnAnimationListener;
@@ -61,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             simpleSliderLayout.setPageTransformer(new ZoomOutSlideTransformer());
         }
 
-        TitlePageIndicator tabPageIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
-        simpleSliderLayout.setViewPagerIndicator(tabPageIndicator);
+        SpringIndicator springIndicator = (SpringIndicator) findViewById(R.id.indicator);
+        simpleSliderLayout.setViewPagerIndicator(springIndicator);
 
         simpleSliderLayout.setAnimationListener(new OnAnimationListener() {
             @Override
