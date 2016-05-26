@@ -1,3 +1,19 @@
+/*
+ *  Copyright (C) 2016 cpacm
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package net.cpacm.library.infinite;
 
 import android.content.Context;
@@ -12,7 +28,7 @@ import net.cpacm.library.animation.OnAnimationListener;
  */
 public class AnimationViewPager extends ViewPager {
 
-    private int position = 0;
+    private int position = 0, prePositon = 0;
     private OnAnimationListener animationListener;
     private BaseSliderView slider, preSlider;
     private boolean animating = false;
@@ -32,52 +48,72 @@ public class AnimationViewPager extends ViewPager {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 0 && positionOffset == 0) {
-                    getSlider(position);
+                    animateSliderEnd(position);
                     if (slider != null)
                         animationListener.onNextAnimationEnd(slider);
-                    if (preSlider != null)
-                        animationListener.onPreAnimationEnd(preSlider);
                 }
             }
 
             @Override
             public void onPageSelected(int position) {
+                prePositon = AnimationViewPager.this.position;
                 AnimationViewPager.this.position = position;
+                if (prePositon > position)
+                    animateSliderStart(position, position + 1);
+                if (prePositon < position)
+                    animateSliderStart(position, position - 1);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                if (animationListener == null) return;
-                if (state == SCROLL_STATE_SETTLING || state == SCROLL_STATE_DRAGGING) {
-                    if (animating) return;
-                    animating = true;
-                    getSlider(position + 1);
-                    if (slider != null)
-                        animationListener.onNextAnimationStart(slider);
-                    if (preSlider != null)
-                        animationListener.onPreAnimationStart(preSlider);
-                } else if (state == SCROLL_STATE_IDLE) {
-                    getSlider(position);
-                    if (slider != null)
-                        animationListener.onNextAnimationEnd(slider);
-                    if (preSlider != null)
-                        animationListener.onPreAnimationEnd(preSlider);
-                    animating = false;
+                if (state == SCROLL_STATE_IDLE) {
+                    animateSliderEnd(position);
                 }
             }
         });
     }
 
-    private void getSlider(int position) {
+    private void animateSliderStart(int position, int prePositon) {
+        if (animationListener == null) return;
+        BaseSliderView slider = null, preSlider = null;
         if (getAdapter() instanceof InfinitePagerAdapter) {
             InfinitePagerAdapter pagerAdapter = (InfinitePagerAdapter) getAdapter();
             slider = pagerAdapter.getSliderView(position);
-            if (position != 0) preSlider = pagerAdapter.getSliderView(position - 1);
+            preSlider = pagerAdapter.getSliderView(prePositon);
         } else if (getAdapter() instanceof BaseSliderAdapter) {
             BaseSliderAdapter sliderAdapter = (BaseSliderAdapter) getAdapter();
             slider = sliderAdapter.getSliderView(position);
-            if (position != 0) preSlider = sliderAdapter.getSliderView(position - 1);
+            preSlider = sliderAdapter.getSliderView(prePositon);
         }
+        if (slider != null)
+            animationListener.onNextAnimationStart(slider);
+        if (preSlider != null)
+            animationListener.onPreAnimationStart(preSlider);
+
+    }
+
+    private void animateSliderEnd(int position) {
+        if (animationListener == null) return;
+        if (getAdapter() instanceof InfinitePagerAdapter) {
+            InfinitePagerAdapter pagerAdapter = (InfinitePagerAdapter) getAdapter();
+            if (slider == null) slider = pagerAdapter.getSliderView(position);
+            else if (slider != pagerAdapter.getSliderView(position)) {
+                preSlider = slider;
+                slider = pagerAdapter.getSliderView(position);
+            }
+        } else if (getAdapter() instanceof BaseSliderAdapter) {
+            BaseSliderAdapter sliderAdapter = (BaseSliderAdapter) getAdapter();
+            if (slider == null) slider = sliderAdapter.getSliderView(position);
+            else if (slider != sliderAdapter.getSliderView(position)) {
+                preSlider = slider;
+                slider = sliderAdapter.getSliderView(position);
+            }
+        }
+        if (slider != null)
+            animationListener.onNextAnimationEnd(slider);
+        if (preSlider != null)
+            animationListener.onPreAnimationEnd(preSlider);
+        animating = false;
     }
 
     public OnAnimationListener getAnimationListener() {

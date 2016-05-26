@@ -1,3 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="" />
+  <settings default="cpacm">
+    <module2copyright>
+      <element module="Project Files" copyright="cpacm" />
+    </module2copyright>
+  </settings>
 </component>

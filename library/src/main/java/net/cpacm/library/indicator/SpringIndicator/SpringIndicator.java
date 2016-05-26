@@ -1,5 +1,6 @@
 /*
  * Copyright 2015 chenupt
+ * Copyright 2016 cpacm
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +43,7 @@ import static android.widget.LinearLayout.HORIZONTAL;
 /**
  * Created by chenupt@gmail.com on 2015/1/31.
  * Description : Tab layout container
+ * Modify : cpacm
  */
 public class SpringIndicator extends FrameLayout implements PageIndicator {
 

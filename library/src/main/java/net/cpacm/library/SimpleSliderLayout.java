@@ -1,3 +1,19 @@
+/*
+ *  Copyright (C) 2016 cpacm
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package net.cpacm.library;
 
 import android.content.Context;
@@ -35,7 +51,6 @@ public class SimpleSliderLayout extends RelativeLayout {
     private BaseSliderAdapter baseSliderAdapter;
     private AnimationViewPager simpleViewPager;
     private boolean autoCycling = true, isCycling = true;
-    private PageIndicator pageIndicator;
 
     /**
      * the duration between animation.
@@ -116,7 +131,6 @@ public class SimpleSliderLayout extends RelativeLayout {
     }
 
     public void setViewPagerIndicator(PageIndicator pageIndicator) {
-        this.pageIndicator = pageIndicator;
         pageIndicator.setViewPager(simpleViewPager);
     }
 
