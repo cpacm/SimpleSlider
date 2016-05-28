@@ -27,11 +27,9 @@ public class ImageSliderView extends BaseSliderView {
     }
 
     @Override
-    public View setSliderView() {
+    public View getSliderView() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.default_image_slider, null);
         imageView = (ImageView) view.findViewById(R.id.image_item);
-        if (mEmptyPlaceHolderRes != 0)
-            imageView.setBackgroundResource(mEmptyPlaceHolderRes);
         bindSliderToPager(view);
         return view;
     }
@@ -44,6 +42,7 @@ public class ImageSliderView extends BaseSliderView {
      */
     public ImageSliderView empty(int resId) {
         mEmptyPlaceHolderRes = resId;
+        imageView.setImageResource(mEmptyPlaceHolderRes);
         return this;
     }
 

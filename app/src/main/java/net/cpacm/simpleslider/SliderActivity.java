@@ -24,6 +24,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
+
 public class SliderActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -37,6 +47,23 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.transform).setOnClickListener(this);
         findViewById(R.id.indicator).setOnClickListener(this);
         findViewById(R.id.animation).setOnClickListener(this);
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration
+                .Builder(this)
+                .memoryCacheExtraOptions(480, 800) // maxwidth, max height，即保存的每个缓存文件的最大长宽
+                .threadPoolSize(3)//线程池内加载的数量
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024)) // You can pass your own memory cache implementation/你可以通过自己的内存缓存实现
+                .memoryCacheSize(2 * 1024 * 1024)
+                .diskCacheSize(50 * 1024 * 1024)
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .diskCacheFileCount(100) //缓存的文件数量
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+                .imageDownloader(new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
+                .writeDebugLogs() // Remove for releaseapp
+                .build();//开始构建
+        ImageLoader.getInstance().init(config);
     }
 
     @Override
@@ -48,10 +75,16 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(i);
                 break;
             case R.id.transform:
+                i.setClass(this, TransformActivity.class);
+                startActivity(i);
                 break;
             case R.id.indicator:
+                i.setClass(this, IndicatorActivity.class);
+                startActivity(i);
                 break;
             case R.id.animation:
+                i.setClass(this, AnimationActivity.class);
+                startActivity(i);
                 break;
         }
     }

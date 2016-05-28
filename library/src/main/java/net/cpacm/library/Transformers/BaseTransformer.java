@@ -1,4 +1,4 @@
-package net.cpacm.library.Transformers;
+package net.cpacm.library.transformers;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -23,7 +23,21 @@ public abstract class BaseTransformer implements ViewPager.PageTransformer {
 
     @Override
     public void transformPage(View view, float position) {
+        //initLocation(view);
         onTransform(view, position);
+    }
+
+    private void initLocation(View view) {
+        ViewHelper.setRotationX(view, 0);
+        ViewHelper.setRotationY(view, 0);
+        ViewHelper.setRotation(view, 0);
+        ViewHelper.setScaleX(view, 1);
+        ViewHelper.setScaleY(view, 1);
+        ViewHelper.setPivotX(view, 0);
+        ViewHelper.setPivotY(view, 0);
+        ViewHelper.setTranslationY(view, 0);
+        ViewHelper.setTranslationX(view, 0);
+        ViewHelper.setAlpha(view, 1f);
     }
 
 }

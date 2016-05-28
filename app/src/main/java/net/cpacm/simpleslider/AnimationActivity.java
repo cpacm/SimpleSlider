@@ -1,27 +1,45 @@
+/*
+ *  Copyright (C) 2016 cpacm
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package net.cpacm.simpleslider;
 
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import net.cpacm.library.SimpleSliderLayout;
-import net.cpacm.library.transformers.FlipPageViewTransformer;
+import net.cpacm.library.animation.DefaultDescriptionAnimation;
+import net.cpacm.library.indicator.SpringIndicator.SpringIndicator;
 import net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
 import net.cpacm.library.slider.BaseSliderView;
+import net.cpacm.library.slider.DescriptionSliderView;
 import net.cpacm.library.slider.ImageSliderView;
 import net.cpacm.library.slider.OnSliderClickListener;
+import net.cpacm.library.transformers.FlipPageViewTransformer;
+import net.cpacm.library.transformers.RotateDownTransformer;
 
-public class BasicActivity extends AppCompatActivity {
+public class AnimationActivity extends AppCompatActivity {
 
     private SimpleSliderLayout simpleSliderLayout;
-    private TextView codeView;
     private CirclePageIndicator circlePageIndicator;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -38,15 +56,14 @@ public class BasicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic);
+        setContentView(R.layout.activity_animation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         simpleSliderLayout = (SimpleSliderLayout) findViewById(R.id.simple_slider);
-        codeView = (TextView) findViewById(R.id.code_tv);
         for (int i = 0; i < urls.length; i++) {
-            ImageSliderView sliderView = new ImageSliderView(getApplicationContext());
+            DescriptionSliderView sliderView = new DescriptionSliderView(getApplicationContext());
             sliderView.empty(R.drawable.image_empty);
             imageLoader.displayImage(urls[i], sliderView.getImageView());
             sliderView.setPageTitle(strs[i]);
@@ -62,22 +79,12 @@ public class BasicActivity extends AppCompatActivity {
             });
             simpleSliderLayout.addSlider(sliderView);
         }
-        simpleSliderLayout.setCycling(true);//无限循环
-        simpleSliderLayout.setAutoCycling(true);//自动循环
-        simpleSliderLayout.setSliderDuration(3000);//每隔3秒进行翻页
-        simpleSliderLayout.setSliderTransformDuration(1000);//翻页的速度为1秒
-        simpleSliderLayout.setPageTransformer(new FlipPageViewTransformer());//翻页动画
-        simpleSliderLayout.setAnimationListener(null);//为slider设置特定的动画
-        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        simpleSliderLayout.setSliderTransformDuration(2000);//翻页的速度为2秒
+        simpleSliderLayout.setPageTransformer(new RotateDownTransformer());//翻页动画
+        simpleSliderLayout.setAnimationListener(new DefaultDescriptionAnimation());//为slider设置特定的动画
+        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circle_indicator);
         simpleSliderLayout.setViewPagerIndicator(circlePageIndicator);//为viewpager设置指示器
 
-        codeView.setText("setCycling(true);//无限循环\n\n" +
-                "setAutoCycling(true);//自动循环\n\n" +
-                "setSliderDuration(3000);//每隔3秒进行翻页\n\n" +
-                "setSliderTransformDuration(1000);//翻页的速度为1秒\n\n" +
-                "setPageTransformer(new FlipPageViewTransformer());//翻页动画\n\n" +
-                "setAnimationListener(null);//为slider设置特定的动画\n\n" +
-                "setViewPagerIndicator(circlePageIndicator);//为viewpager设置指示器");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package net.cpacm.library.Transformers;
+package net.cpacm.library.transformers;
 
 import android.graphics.Camera;
 import android.graphics.Matrix;

@@ -19,7 +19,7 @@ public abstract class BaseSliderView {
 
     protected BaseSliderView(Context context) {
         mContext = context;
-        sliderView = setSliderView();
+        sliderView = getSliderView();
     }
 
     /**
@@ -70,9 +70,12 @@ public abstract class BaseSliderView {
      *
      * @return
      */
-    public abstract View setSliderView();
+    public abstract View getSliderView();
 
     public View getView() {
+        if (sliderView == null) {
+            sliderView = getSliderView();
+        }
         return sliderView;
     }
 

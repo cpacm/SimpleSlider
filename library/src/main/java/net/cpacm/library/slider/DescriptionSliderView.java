@@ -26,24 +26,25 @@ public class DescriptionSliderView extends BaseSliderView {
     }
 
     @Override
-    public View setSliderView() {
+    public View getSliderView() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.default_description_slider, null);
         imageView = (ImageView) view.findViewById(R.id.image_item);
-        if (mEmptyPlaceHolderRes != 0)
-            imageView.setBackgroundResource(mEmptyPlaceHolderRes);
         titleLayout = view.findViewById(R.id.slider_title_layout);
         titleView = (TextView) view.findViewById(R.id.slider_title);
+
         bindSliderToPager(view);
         return view;
     }
 
-    public void setTitle(String title) {
-        if (!TextUtils.isEmpty(title))
-            titleView.setText(title);
-    }
-
     public View getTitleLayout() {
         return titleLayout;
+    }
+
+    @Override
+    public void setPageTitle(String pageTitle) {
+        if (!TextUtils.isEmpty(pageTitle))
+            titleView.setText(pageTitle);
+        super.setPageTitle(pageTitle);
     }
 
     /**
@@ -54,6 +55,7 @@ public class DescriptionSliderView extends BaseSliderView {
      */
     public DescriptionSliderView empty(int resId) {
         mEmptyPlaceHolderRes = resId;
+        imageView.setImageResource(mEmptyPlaceHolderRes);
         return this;
     }
 

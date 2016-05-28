@@ -1,4 +1,4 @@
-package net.cpacm.library.Transformers;
+package net.cpacm.library.transformers;
 
 import android.os.Build;
 import android.support.v4.view.ViewPager;

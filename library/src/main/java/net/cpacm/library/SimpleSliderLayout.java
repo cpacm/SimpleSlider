@@ -94,6 +94,11 @@ public class SimpleSliderLayout extends RelativeLayout {
         setAutoCycling(true);
     }
 
+    /**
+     * set transformer for viewpager
+     *
+     * @param transformer
+     */
     public void setPageTransformer(ViewPager.PageTransformer transformer) {
         simpleViewPager.setPageTransformer(true, transformer);
     }
@@ -103,6 +108,7 @@ public class SimpleSliderLayout extends RelativeLayout {
     }
 
     /**
+     * speed settings for page
      * 利用反射修改ViewPager中Scroller的滑动速度
      *
      * @param period       时长
@@ -130,7 +136,13 @@ public class SimpleSliderLayout extends RelativeLayout {
         }
     }
 
+    /**
+     * set pageindicator to the simple viewpager
+     *
+     * @param pageIndicator
+     */
     public void setViewPagerIndicator(PageIndicator pageIndicator) {
+        if (pageIndicator == null) return;
         pageIndicator.setViewPager(simpleViewPager);
     }
 
@@ -185,6 +197,11 @@ public class SimpleSliderLayout extends RelativeLayout {
         sliderHandler.removeMessages(0);
     }
 
+    /**
+     * set time to flip page
+     *
+     * @param sliderDuration
+     */
     public void setSliderDuration(long sliderDuration) {
         this.sliderDuration = sliderDuration;
     }
@@ -197,6 +214,10 @@ public class SimpleSliderLayout extends RelativeLayout {
     public void removeSlider(int position) {
         baseSliderAdapter.removeSliderAt(position);
         judgeCycing();
+    }
+
+    public void removeAllSlider() {
+        baseSliderAdapter.removeAllSliders();
     }
 
     public <T extends BaseSliderView> void removeSlider(T baseSlider) {

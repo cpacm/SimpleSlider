@@ -1,8 +1,24 @@
+/*
+ *  Copyright (C) 2016 cpacm
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package net.cpacm.simpleslider;
 
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,19 +28,33 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import net.cpacm.library.SimpleSliderLayout;
-import net.cpacm.library.transformers.FlipPageViewTransformer;
+import net.cpacm.library.indicator.SpringIndicator.SpringIndicator;
 import net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
+import net.cpacm.library.indicator.ViewpagerIndicator.IconPageIndicator;
+import net.cpacm.library.indicator.ViewpagerIndicator.LinePageIndicator;
+import net.cpacm.library.indicator.ViewpagerIndicator.UnderlinePageIndicator;
 import net.cpacm.library.slider.BaseSliderView;
 import net.cpacm.library.slider.ImageSliderView;
 import net.cpacm.library.slider.OnSliderClickListener;
+import net.cpacm.library.transformers.FlipPageViewTransformer;
+import net.cpacm.library.transformers.ZoomOutSlideTransformer;
 
-public class BasicActivity extends AppCompatActivity {
+public class IndicatorActivity extends AppCompatActivity {
 
     private SimpleSliderLayout simpleSliderLayout;
-    private TextView codeView;
     private CirclePageIndicator circlePageIndicator;
+    private IconPageIndicator iconPageIndicator;
+    private LinePageIndicator linePageIndicator;
+    private UnderlinePageIndicator underlinePageIndicator;
+    private SpringIndicator springIndicator;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
+    private static final int[] ICONS = new int[]{
+            R.drawable.perm_group_calendar,
+            R.drawable.perm_group_camera,
+            R.drawable.perm_group_device_alarms,
+            R.drawable.perm_group_location
+    };
     private String[] strs = {"夜空", "车站", "夕阳", "世界", "神社", "碑"};
     private String[] urls = {
             "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B81.jpg",
@@ -38,13 +68,12 @@ public class BasicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic);
+        setContentView(R.layout.activity_indicator);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         simpleSliderLayout = (SimpleSliderLayout) findViewById(R.id.simple_slider);
-        codeView = (TextView) findViewById(R.id.code_tv);
         for (int i = 0; i < urls.length; i++) {
             ImageSliderView sliderView = new ImageSliderView(getApplicationContext());
             sliderView.empty(R.drawable.image_empty);
@@ -62,22 +91,24 @@ public class BasicActivity extends AppCompatActivity {
             });
             simpleSliderLayout.addSlider(sliderView);
         }
-        simpleSliderLayout.setCycling(true);//无限循环
-        simpleSliderLayout.setAutoCycling(true);//自动循环
-        simpleSliderLayout.setSliderDuration(3000);//每隔3秒进行翻页
-        simpleSliderLayout.setSliderTransformDuration(1000);//翻页的速度为1秒
-        simpleSliderLayout.setPageTransformer(new FlipPageViewTransformer());//翻页动画
-        simpleSliderLayout.setAnimationListener(null);//为slider设置特定的动画
-        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        simpleSliderLayout.setViewPagerIndicator(circlePageIndicator);//为viewpager设置指示器
+        simpleSliderLayout.setPageTransformer(new ZoomOutSlideTransformer());//翻页动画
+        simpleSliderLayout.setSliderTransformDuration(2000);
 
-        codeView.setText("setCycling(true);//无限循环\n\n" +
-                "setAutoCycling(true);//自动循环\n\n" +
-                "setSliderDuration(3000);//每隔3秒进行翻页\n\n" +
-                "setSliderTransformDuration(1000);//翻页的速度为1秒\n\n" +
-                "setPageTransformer(new FlipPageViewTransformer());//翻页动画\n\n" +
-                "setAnimationListener(null);//为slider设置特定的动画\n\n" +
-                "setViewPagerIndicator(circlePageIndicator);//为viewpager设置指示器");
+        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circle_indicator);
+        simpleSliderLayout.setViewPagerIndicator(circlePageIndicator);
+
+        iconPageIndicator = (IconPageIndicator) findViewById(R.id.icon_indicator);
+        iconPageIndicator.setIconRes(ICONS);
+        simpleSliderLayout.setViewPagerIndicator(iconPageIndicator);
+
+        linePageIndicator = (LinePageIndicator) findViewById(R.id.line_indicator);
+        simpleSliderLayout.setViewPagerIndicator(linePageIndicator);
+
+        underlinePageIndicator = (UnderlinePageIndicator) findViewById(R.id.underline_indicator);
+        simpleSliderLayout.setViewPagerIndicator(underlinePageIndicator);
+
+        springIndicator = (SpringIndicator) findViewById(R.id.spring_indicator);
+        simpleSliderLayout.setViewPagerIndicator(springIndicator);
     }
 
     @Override
