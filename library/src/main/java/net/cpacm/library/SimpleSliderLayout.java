@@ -109,10 +109,9 @@ public class SimpleSliderLayout extends RelativeLayout {
 
     /**
      * speed settings for page
-     * 利用反射修改ViewPager中Scroller的滑动速度
      *
-     * @param period       时长
-     * @param interpolator 渲染器
+     * @param period
+     * @param interpolator
      */
     public void setSliderTransformDuration(int period, Interpolator interpolator) {
         try {

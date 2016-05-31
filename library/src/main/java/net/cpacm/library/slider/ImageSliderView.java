@@ -4,12 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import net.cpacm.library.R;
 
 /**
- * 图片轮播图
  * Auther: cpacm
  * Date: 2016/3/7 0007
  */

@@ -22,19 +22,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import net.cpacm.library.SimpleSliderLayout;
 import net.cpacm.library.animation.DefaultDescriptionAnimation;
-import net.cpacm.library.indicator.SpringIndicator.SpringIndicator;
 import net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
 import net.cpacm.library.slider.BaseSliderView;
 import net.cpacm.library.slider.DescriptionSliderView;
-import net.cpacm.library.slider.ImageSliderView;
 import net.cpacm.library.slider.OnSliderClickListener;
-import net.cpacm.library.transformers.FlipPageViewTransformer;
 import net.cpacm.library.transformers.RotateDownTransformer;
 
 public class AnimationActivity extends AppCompatActivity {

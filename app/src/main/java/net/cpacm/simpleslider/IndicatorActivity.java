@@ -22,10 +22,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import net.cpacm.library.SimpleSliderLayout;
 import net.cpacm.library.indicator.SpringIndicator.SpringIndicator;
@@ -36,7 +34,6 @@ import net.cpacm.library.indicator.ViewpagerIndicator.UnderlinePageIndicator;
 import net.cpacm.library.slider.BaseSliderView;
 import net.cpacm.library.slider.ImageSliderView;
 import net.cpacm.library.slider.OnSliderClickListener;
-import net.cpacm.library.transformers.FlipPageViewTransformer;
 import net.cpacm.library.transformers.ZoomOutSlideTransformer;
 
 public class IndicatorActivity extends AppCompatActivity {

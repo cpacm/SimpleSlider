@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import net.cpacm.library.SimpleSliderLayout;
 import net.cpacm.library.transformers.FlipPageViewTransformer;

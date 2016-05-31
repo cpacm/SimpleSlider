@@ -13,7 +13,6 @@ import net.cpacm.library.slider.BaseSliderView;
  * A PagerAdapter that wraps around another PagerAdapter to handle paging wrap-around.
  * Thanks to: https://github.com/antonyt/InfiniteViewPager
  * <p/>
- * 通过设置count最大数使得viewpager可以无限向右滑动
  */
 public class InfinitePagerAdapter extends PagerAdapter {
 

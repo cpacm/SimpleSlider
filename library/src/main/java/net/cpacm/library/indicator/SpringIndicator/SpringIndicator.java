@@ -38,8 +38,6 @@ import net.cpacm.library.infinite.InfinitePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.widget.LinearLayout.HORIZONTAL;
-
 /**
  * Created by chenupt@gmail.com on 2015/1/31.
  * Description : Tab layout container

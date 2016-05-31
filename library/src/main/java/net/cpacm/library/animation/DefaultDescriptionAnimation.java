@@ -27,7 +27,6 @@ import net.cpacm.library.slider.DescriptionSliderView;
 /**
  * @auther: cpacm
  * @date: 2016/5/26
- * @desciption: 默认的文字动画
  */
 public class DefaultDescriptionAnimation implements OnAnimationListener {
 
