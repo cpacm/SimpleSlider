@@ -1,9 +1,9 @@
 # Simple Slider
 
 I wrote this library just because I want a lightweight slider:
->Use your own imageloader;
->Create your own indicator;
->Variety of transition effects;
+>Use your own imageloader;  
+>Create your own indicator;  
+>Variety of transition effects;  
 >Customize the animation of each page.
 
 ~(～￣▽￣)～
@@ -14,7 +14,7 @@ I wrote this library just because I want a lightweight slider:
 
 [Download Apk](https://github.com/cpacm/SimpleSlider/releases/download/v1.0.0/simple_slider.apk)
  
-## how to use
+## How to use
 
 ### Gradle
 
@@ -25,7 +25,7 @@ dependencies {
 ```
 or you can download aar file from release.
 
-### add the slider to your layout
+### Add the slider to your layout
 ```xml
 <net.cpacm.library.SimpleSliderLayout
     android:id="@+id/simple_slider"
@@ -36,7 +36,7 @@ or you can download aar file from release.
 </net.cpacm.library.SimpleSliderLayout>
 ```
 
-### config in your code
+### Config in your code
 
 ```java
 simpleSliderLayout.setCycling(true);
