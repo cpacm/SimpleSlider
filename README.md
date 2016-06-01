@@ -1,6 +1,6 @@
 # Simple Slider
 
-I wrote this library just because I want a lightweight slider:
+I wrote this library just because I want a lightweight slider.
 >Use your own imageloader;  
 >Create your own indicator;  
 >Variety of transition effects;  
@@ -93,7 +93,7 @@ The above transforms come from [AndroidImageSlider](https://github.com/daimajia/
 License
 ---
 
-    Copyright 2015 chenupt
+    Copyright 2016 cpacm
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
