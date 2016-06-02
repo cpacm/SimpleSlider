@@ -10,6 +10,8 @@ I wrote this library just because I want a lightweight slider.
 
 ## Demo
 
+[中文文档](http://www.cpacm.net/2016/06/03/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%EF%BC%9A%E4%B8%80%E4%B8%AA%E9%AB%98%E5%BA%A6%E8%87%AA%E7%94%B1%E7%9A%84%E8%BD%BB%E9%87%8F%E5%8C%96Slider/)
+
 ![simpleslider](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/simpleslider.png)
 
 [Download Apk](https://github.com/cpacm/SimpleSlider/releases/download/v1.0.0/simple_slider.apk)
@@ -88,7 +90,8 @@ The above transforms come from [AndroidImageSlider](https://github.com/daimajia/
 **You can customize the animation implements `OnAnimationListener`**
 
 ## **Note:**
-**In the infinite loop mode, at least four sliders.**
+**In the infinite loop mode, at least four sliders.**  
+**Android API >= 3.0**
 
 License
 ---
