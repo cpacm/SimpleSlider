@@ -162,7 +162,7 @@ public class SimpleSliderLayout extends RelativeLayout {
      */
     public void setCycling(boolean isCycling) {
         this.isCycling = isCycling;
-        if (baseSliderAdapter.getCount() < 4) return;
+        if (baseSliderAdapter.getCount() < 3) return;
         if (isCycling) cycling();
         else stopCycling();
     }

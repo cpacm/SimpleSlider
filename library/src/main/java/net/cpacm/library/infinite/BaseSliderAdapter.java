@@ -86,7 +86,13 @@ public class BaseSliderAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         BaseSliderView b = mContents.get(position);
         View v = b.getView();
-        container.addView(v);
+        try{
+            container.addView(v);
+        }catch (Exception e){
+            container.removeView(v);
+            container.addView(v);
+        }
+
         return v;
     }
 
