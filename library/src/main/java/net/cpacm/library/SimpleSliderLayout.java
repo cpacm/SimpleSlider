@@ -63,7 +63,7 @@ public class SimpleSliderLayout extends RelativeLayout {
             super.dispatchMessage(msg);
             if (msg.what == 0) {
                 moveNextPosition(true);
-                sliderHandler.sendEmptyMessageDelayed(0, sliderDuration);
+                sendEmptyMessageDelayed(0, sliderDuration);
             }
         }
     };
@@ -162,7 +162,6 @@ public class SimpleSliderLayout extends RelativeLayout {
      */
     public void setCycling(boolean isCycling) {
         this.isCycling = isCycling;
-        if (baseSliderAdapter.getCount() < 3) return;
         if (isCycling) cycling();
         else stopCycling();
     }
@@ -266,9 +265,11 @@ public class SimpleSliderLayout extends RelativeLayout {
 
         if (getRealAdapter() == null)
             throw new IllegalStateException("You did not set a slider adapter");
-        if (baseSliderAdapter.getCount() < 4 && simpleViewPager.getCurrentItem() == baseSliderAdapter.getCount() - 1)
+        if (!isCycling && simpleViewPager.getCurrentItem() == baseSliderAdapter.getCount() - 1)
             simpleViewPager.setCurrentItem(0, false);
-        else simpleViewPager.setCurrentItem(simpleViewPager.getCurrentItem() + 1, smooth);
+        else {
+            simpleViewPager.setCurrentItem(simpleViewPager.getCurrentItem() + 1, smooth);
+        }
     }
 
     private BaseSliderAdapter getRealAdapter() {

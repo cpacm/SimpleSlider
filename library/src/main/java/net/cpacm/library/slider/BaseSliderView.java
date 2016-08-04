@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import net.cpacm.library.transformers.ViewHelper;
+
 /**
  * When you want to make your own slider view, you must extends from this class.
  * BaseSliderView provides some useful methods.
