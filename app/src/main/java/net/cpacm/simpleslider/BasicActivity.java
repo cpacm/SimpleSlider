@@ -28,8 +28,10 @@ public class BasicActivity extends AppCompatActivity {
     private String[] urls = {
             "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B81.jpg",
             "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B82.jpg",
-
-
+            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B83.jpg",
+            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B84.jpg",
+            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B85.jpg",
+            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B86.jpg"
     };
 
     @Override
@@ -60,7 +62,7 @@ public class BasicActivity extends AppCompatActivity {
             simpleSliderLayout.addSlider(sliderView);
         }
         simpleSliderLayout.setCycling(true);//无限循环
-        simpleSliderLayout.setAutoCycling(false);//自动循环
+        simpleSliderLayout.setAutoCycling(true);//自动循环
         simpleSliderLayout.setSliderDuration(3000);//每隔3秒进行翻页
         simpleSliderLayout.setSliderTransformDuration(1000);//翻页的速度为1秒
         simpleSliderLayout.setPageTransformer(new FlipPageViewTransformer());//翻页动画
@@ -75,6 +77,18 @@ public class BasicActivity extends AppCompatActivity {
                 "setPageTransformer(new FlipPageViewTransformer());//翻页动画\n\n" +
                 "setAnimationListener(null);//为slider设置特定的动画\n\n" +
                 "setViewPagerIndicator(circlePageIndicator);//为viewpager设置指示器");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        simpleSliderLayout.setAutoCycling(true);//自动循环
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        simpleSliderLayout.setAutoCycling(false);//自动循环
     }
 
     @Override

@@ -17,8 +17,6 @@ import net.cpacm.library.slider.BaseSliderView;
  */
 public class InfinitePagerAdapter extends PagerAdapter {
 
-    private final static int PAGER_CACHE_COUNT = 3;
-
     private static final String TAG = "InfinitePagerAdapter";
     private static final boolean DEBUG = false;
 
@@ -169,11 +167,6 @@ public class InfinitePagerAdapter extends PagerAdapter {
         public RecordData(Integer key, Object object) {
             this.key = key;
             this.object = object;
-        }
-
-        public void copyFrom(RecordData data) {
-            key = data.key;
-            object = data.object;
         }
     }
 }

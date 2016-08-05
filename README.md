@@ -22,7 +22,7 @@ I wrote this library just because I want a lightweight slider.
 
 ```groovy
 dependencies {
-    	compile 'net.cpacm.simpleslider:library:1.0.0'
+    	compile 'net.cpacm.simpleslider:library:1.0.1'
 }
 ```
 or you can download aar file from release.
@@ -90,7 +90,7 @@ The above transforms come from [AndroidImageSlider](https://github.com/daimajia/
 **You can customize the animation implements `OnAnimationListener`**
 
 ## **Note:**
-**In the infinite loop mode, at least four sliders.**  
+**In the infinite loop mode, at least three sliders.**
 **Android API >= 3.0**
 
 License
