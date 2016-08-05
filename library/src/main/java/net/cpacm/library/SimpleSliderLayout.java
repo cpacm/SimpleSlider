@@ -86,7 +86,6 @@ public class SimpleSliderLayout extends RelativeLayout {
     public void init(Context context, AttributeSet attrs) {
         mContext = context;
         View parent = LayoutInflater.from(mContext).inflate(R.layout.simple_slider_layout, this, true);
-        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SimpleSliderLayout);
         simpleViewPager = (AnimationViewPager) parent.findViewById(R.id.simple_slider_viewpager);
         baseSliderAdapter = new BaseSliderAdapter();
         infinitePagerAdapter = new InfinitePagerAdapter(baseSliderAdapter);
@@ -162,7 +161,10 @@ public class SimpleSliderLayout extends RelativeLayout {
      */
     public void setCycling(boolean isCycling) {
         this.isCycling = isCycling;
-        if (isCycling) cycling();
+        if (baseSliderAdapter.getCount() <= 2) {
+            this.isCycling = false;
+        }
+        if (this.isCycling) cycling();
         else stopCycling();
     }
 
@@ -206,12 +208,12 @@ public class SimpleSliderLayout extends RelativeLayout {
 
     public <T extends BaseSliderView> void addSlider(T baseSlider) {
         baseSliderAdapter.addSlider(baseSlider);
-        judgeCycing();
+        setCycling(isCycling);
     }
 
     public void removeSlider(int position) {
         baseSliderAdapter.removeSliderAt(position);
-        judgeCycing();
+        setCycling(isCycling);
     }
 
     public void removeAllSlider() {
@@ -220,13 +222,7 @@ public class SimpleSliderLayout extends RelativeLayout {
 
     public <T extends BaseSliderView> void removeSlider(T baseSlider) {
         baseSliderAdapter.removeSlider(baseSlider);
-        judgeCycing();
-    }
-
-    private void judgeCycing() {
-        if (baseSliderAdapter.getCount() < 4) stopCycling();
-        else if (isCycling) cycling();
-        else stopCycling();
+        setCycling(isCycling);
     }
 
     public void addOnPageChangeListener(final ViewPager.OnPageChangeListener listener) {

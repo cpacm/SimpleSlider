@@ -3,6 +3,8 @@ package net.cpacm.library.slider;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import net.cpacm.library.transformers.ViewHelper;
 
@@ -17,6 +19,7 @@ public abstract class BaseSliderView {
     private Bundle mBundle;
     protected OnSliderClickListener mOnSliderClickListener;
     private View sliderView;
+    private ViewGroup containerView;
     private String pageTitle;
 
     protected BaseSliderView(Context context) {
@@ -79,6 +82,22 @@ public abstract class BaseSliderView {
             sliderView = getSliderView();
         }
         return sliderView;
+    }
+
+    @Deprecated
+    private View getWapperView() {
+        if (sliderView == null) {
+            sliderView = getSliderView();
+        }
+        if (containerView == null) {
+            containerView = new FrameLayout(mContext);
+            containerView.addView(sliderView);
+        } else {
+            containerView.removeAllViews();
+            containerView = new FrameLayout(mContext);
+            containerView.addView(sliderView);
+        }
+        return containerView;
     }
 
     /**

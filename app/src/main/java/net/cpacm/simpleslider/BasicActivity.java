@@ -60,7 +60,7 @@ public class BasicActivity extends AppCompatActivity {
             simpleSliderLayout.addSlider(sliderView);
         }
         simpleSliderLayout.setCycling(true);//无限循环
-        simpleSliderLayout.setAutoCycling(true);//自动循环
+        simpleSliderLayout.setAutoCycling(false);//自动循环
         simpleSliderLayout.setSliderDuration(3000);//每隔3秒进行翻页
         simpleSliderLayout.setSliderTransformDuration(1000);//翻页的速度为1秒
         simpleSliderLayout.setPageTransformer(new FlipPageViewTransformer());//翻页动画

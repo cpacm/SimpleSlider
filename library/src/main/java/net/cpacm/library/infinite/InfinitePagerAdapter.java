@@ -9,17 +9,11 @@ import android.view.ViewGroup;
 
 import net.cpacm.library.slider.BaseSliderView;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A PagerAdapter that wraps around another PagerAdapter to handle paging wrap-around.
  * Thanks to: https://github.com/antonyt/InfiniteViewPager
- * <p>
+ * <p/>
  */
 public class InfinitePagerAdapter extends PagerAdapter {
 
@@ -46,6 +40,9 @@ public class InfinitePagerAdapter extends PagerAdapter {
                 super.onChanged();
             }
         });
+        preData = new RecordData(-1, null);
+        currentData = new RecordData(-1, null);
+        nextData = new RecordData(-1, null);
     }
 
     public BaseSliderAdapter getRealAdapter() {
@@ -78,12 +75,6 @@ public class InfinitePagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public void finishUpdate(View container) {
-        super.finishUpdate(container);
-        container.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public Object instantiateItem(ViewGroup container, int position) {
         if (getRealCount() == 0) {
             return null;
@@ -94,6 +85,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
         debug("instantiateItem: real position: " + position);
         debug("instantiateItem: virtual position: " + virtualPosition);
 
+        // focus next
         if (position > nextPosition) {
             RecordData data = preData;
             preData = currentData;
@@ -101,18 +93,21 @@ public class InfinitePagerAdapter extends PagerAdapter {
             Object v = adapter.instantiateItem(container, virtualPosition);
             nextData = new RecordData(virtualPosition, v);
             currentPosition = position - 1;
-            if (data != null) {
+            if (data.object != null) {
                 destroyCacheItem(container, data.key, data.object);
             }
             return nextData.object;
-        } else if (position < prePosition) {
+
+        }
+        // focus pre
+        else if (position < prePosition) {
             RecordData data = nextData;
             nextData = currentData;
             currentData = preData;
             Object v = adapter.instantiateItem(container, virtualPosition);
             preData = new RecordData(virtualPosition, v);
             currentPosition = position + 1;
-            if (data != null) {
+            if (data.object != null) {
                 destroyCacheItem(container, data.key, data.object);
             }
             return preData.object;
@@ -121,11 +116,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
     }
 
     public void destroyCacheItem(ViewGroup container, int position, Object object) {
-        if (preData != null && position == preData.key)
-            return;
-        if (currentData != null && position == currentData.key)
-            return;
-        if (nextData != null && position == nextData.key)
+        if (object == preData.object || object == currentData.object || object == nextData.object)
             return;
         adapter.destroyItem(container, position, object);
     }
@@ -135,6 +126,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
         if (getRealCount() == 0) {
             return;
         }
+
     }
 
     /*
@@ -177,6 +169,11 @@ public class InfinitePagerAdapter extends PagerAdapter {
         public RecordData(Integer key, Object object) {
             this.key = key;
             this.object = object;
+        }
+
+        public void copyFrom(RecordData data) {
+            key = data.key;
+            object = data.object;
         }
     }
 }
