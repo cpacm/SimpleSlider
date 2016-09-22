@@ -368,7 +368,10 @@ public class LinePageIndicator extends View implements PageIndicator {
             result = specSize;
         } else {
             //Calculate the width according the views count
-            final int count = mViewPager.getAdapter().getCount();
+            int count = mViewPager.getAdapter().getCount();
+            if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
+                count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
+            }
             result = getPaddingLeft() + getPaddingRight() + (count * mLineWidth) + ((count - 1) * mGapWidth);
             //Respect AT_MOST value if that was what is called for by measureSpec
             if (specMode == MeasureSpec.AT_MOST) {
