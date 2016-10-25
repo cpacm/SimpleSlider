@@ -20,7 +20,7 @@ I wrote this library just because I want a lightweight slider.
 
 ```groovy
 dependencies {
-    	compile 'net.cpacm.simpleslider:library:1.0.2'
+    	compile 'net.cpacm.simpleslider:library:1.0.3'
 }
 ```
 

@@ -142,6 +142,7 @@ public class SimpleSliderLayout extends RelativeLayout {
     public void setViewPagerIndicator(PageIndicator pageIndicator) {
         if (pageIndicator == null) return;
         pageIndicator.setViewPager(simpleViewPager);
+        pageIndicator.notifyDataSetChanged();
     }
 
     @Override
@@ -161,11 +162,12 @@ public class SimpleSliderLayout extends RelativeLayout {
      */
     public void setCycling(boolean isCycling) {
         this.isCycling = isCycling;
-        if (baseSliderAdapter.getCount() <= 2) {
-            this.isCycling = false;
+        if (this.isCycling && baseSliderAdapter.getCount() > 2) {
+            cycling();
+        } else {
+            stopCycling();
         }
-        if (this.isCycling) cycling();
-        else stopCycling();
+
     }
 
     private void cycling() {
@@ -261,7 +263,7 @@ public class SimpleSliderLayout extends RelativeLayout {
 
         if (getRealAdapter() == null)
             throw new IllegalStateException("You did not set a slider adapter");
-        if (!isCycling && simpleViewPager.getCurrentItem() == baseSliderAdapter.getCount() - 1)
+        if (baseSliderAdapter.getCount() <=2 ||(!isCycling && simpleViewPager.getCurrentItem() == baseSliderAdapter.getCount() - 1))
             simpleViewPager.setCurrentItem(0, false);
         else {
             simpleViewPager.setCurrentItem(simpleViewPager.getCurrentItem() + 1, smooth);
@@ -278,5 +280,9 @@ public class SimpleSliderLayout extends RelativeLayout {
 
     public void moveNextPosition() {
         moveNextPosition(true);
+    }
+
+    public ViewPager getViewPager() {
+        return simpleViewPager;
     }
 }
