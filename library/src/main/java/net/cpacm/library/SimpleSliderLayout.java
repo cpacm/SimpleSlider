@@ -50,7 +50,7 @@ public class SimpleSliderLayout extends RelativeLayout {
     private InfinitePagerAdapter infinitePagerAdapter;
     private BaseSliderAdapter baseSliderAdapter;
     private AnimationViewPager simpleViewPager;
-    private boolean autoCycling = true, isCycling = true;
+    private boolean autoCycling = true, isCycling = true, mIsScrollable = true;
 
     /**
      * the duration between animation.
@@ -284,5 +284,18 @@ public class SimpleSliderLayout extends RelativeLayout {
 
     public ViewPager getViewPager() {
         return simpleViewPager;
+    }
+    
+    public void setScrollable(boolean Scrollable) {
+        mIsScrollable = Scrollable;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        if (mIsScrollable == false) {
+            return false;
+        } else {
+            return super.onInterceptTouchEvent(event);
+        }
     }
 }
