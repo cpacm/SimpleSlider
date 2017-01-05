@@ -1,5 +1,10 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+version = '1.0.3'
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -22,6 +27,97 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives sourcesJar
+}
+
+group = 'net.cpacm.simpleslider'
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging 'aar'
+            groupId 'net.cpacm.simpleslider' //自己定义的组名
+            artifactId 'library'
+
+            name 'simpleslider'
+            description 'A simple slider allows you to easily use.'
+            url 'https://github.com/cpacm/SimpleSlider'
+            inceptionYear '2016'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                connection 'https://github.com/cpacm/SimpleSlider.git'
+                url 'https://github.com/cpacm/SimpleSlider'
+
+            }
+            developers {
+                developer {
+                    name 'cpacm'
+                    email 'shenliming@gmail.com'
+                }
+            }
+        }
+
+    }
+}
+
+// Bintray
+
+//获取local.propertes的信息
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    publish = true
+    configurations = ['archives']
+    pkg {
+        //填入 bintray 上对应的 package 信息
+        repo = 'maven'
+        name = 'SimpleSlider'
+        vcsUrl = 'https://github.com/cpacm/SimpleSlider.git'
+        websiteUrl = 'https://github.com/cpacm/SimpleSlider'
+        licenses = ['Apache-2.0']
+        issueTrackerUrl = 'https://github.com/cpacm/SimpleSlider/issues'
+        publicDownloadNumbers = true
+        version {
+            name = '1.0.3'
+            desc = 'simple slider release'
+            vcsTag = '1.0.3'
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task findConventions << {
+    println project.getConvention()
 }
 
 
