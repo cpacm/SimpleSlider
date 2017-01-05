@@ -39,14 +39,14 @@ public class AnimationActivity extends AppCompatActivity {
     private CirclePageIndicator circlePageIndicator;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
-    private String[] strs = {"夜空", "车站", "夕阳", "世界", "神社", "碑"};
+    private String[] strs = {"Clannad", "THE IDOLM@STER", "miku", "rabbit", "μ's", "TouHou Project"};
     private String[] urls = {
-            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B81.jpg",
-            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B82.jpg",
-            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B83.jpg",
-            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B84.jpg",
-            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B85.jpg",
-            "http://7xi4up.com1.z0.glb.clouddn.com/%E5%A3%81%E7%BA%B86.jpg"
+            "http://ofrf20oms.bkt.clouddn.com/Clannad.jpg",
+            "http://ofrf20oms.bkt.clouddn.com/THE%20IDOLM@STER.jpg",
+            "http://ofrf20oms.bkt.clouddn.com/miku.jpg",
+            "http://ofrf20oms.bkt.clouddn.com/wusaki.jpg",
+            "http://ofrf20oms.bkt.clouddn.com/%CE%BC%27s.jpg",
+            "http://ofrf20oms.bkt.clouddn.com/project.jpg"
     };
 
     @Override
