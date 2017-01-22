@@ -35,15 +35,15 @@ public class AnimationViewPager extends ViewPager {
 
     public AnimationViewPager(Context context) {
         super(context);
-        initViewPager();
+        initAnimationViewPager();
     }
 
     public AnimationViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initViewPager();
+        initAnimationViewPager();
     }
 
-    private void initViewPager() {
+    private void initAnimationViewPager() {
         addOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
