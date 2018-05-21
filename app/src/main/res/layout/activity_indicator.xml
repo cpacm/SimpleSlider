@@ -37,24 +37,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <net.cpacm.library.SimpleSliderLayout
+            <com.cpacm.library.SimpleViewPager
                 android:id="@+id/simple_slider"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="164dp"
                 android:background="#ffffff">
 
-                <net.cpacm.library.indicator.ViewpagerIndicator.UnderlinePageIndicator
-                    android:id="@+id/underline_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="4dp"
-                    android:layout_alignParentBottom="true"
-                    app:selectedColor="@color/colorPrimary" />
+            </com.cpacm.library.SimpleViewPager>
 
-            </net.cpacm.library.SimpleSliderLayout>
+            <com.cpacm.library.indicator.ViewpagerIndicator.UnderlinePageIndicator
+                android:id="@+id/underline_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="4dp"
+                android:layout_gravity="bottom"
+                app:selectedColor="@color/colorPrimary" />
 
         </android.support.v7.widget.CardView>
 
-        <net.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator
+        <com.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator
             android:id="@+id/circle_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             app:fillColor="@color/colorPrimary"
             app:strokeColor="#000000" />
 
-        <net.cpacm.library.indicator.ViewpagerIndicator.IconPageIndicator
+        <com.cpacm.library.indicator.ViewpagerIndicator.IconPageIndicator
             android:id="@+id/icon_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:background="@color/colorPrimary"
             android:padding="4dp" />
 
-        <net.cpacm.library.indicator.ViewpagerIndicator.LinePageIndicator
+        <com.cpacm.library.indicator.ViewpagerIndicator.LinePageIndicator
             android:id="@+id/line_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:padding="4dp"
             app:selectedColor="@color/colorPrimary" />
 
-        <net.cpacm.library.indicator.SpringIndicator.SpringIndicator
+        <com.cpacm.library.indicator.SpringIndicator.SpringIndicator
             android:id="@+id/spring_indicator"
             android:layout_width="match_parent"
             android:layout_height="48dp"

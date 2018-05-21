@@ -37,13 +37,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <net.cpacm.library.SimpleSliderLayout
+            <com.cpacm.library.SimpleViewPager
                 android:id="@+id/simple_slider"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="164dp"
                 android:background="#ffffff">
 
-            </net.cpacm.library.SimpleSliderLayout>
+            </com.cpacm.library.SimpleViewPager>
 
         </android.support.v7.widget.CardView>
 

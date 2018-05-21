@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.cpacm.simpleslider">
+    package="com.cpacm.simpleslider">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,12 +34,6 @@
             android:name=".IndicatorActivity"
             android:label="@string/indicator"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".AnimationActivity"
-            android:label="@string/animation"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
     </application>
 
 </manifest>

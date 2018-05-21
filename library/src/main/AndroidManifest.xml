@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.cpacm.library">
+    package="com.cpacm.library">
 
     <application
         android:allowBackup="true"
