@@ -20,42 +20,11 @@ I wrote this library just because I want a lightweight slider.
 
 ```groovy
 dependencies {
-    	compile 'net.cpacm.simpleslider:library:1.0.4'
+    	compile 'com.cpacm.simpleslider:library:2.0.0'
 }
-```
-
-### Add the slider to your layout
-```xml
-<net.cpacm.library.SimpleSliderLayout
-    android:id="@+id/simple_slider"
-    android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:background="#ffffff">
-    
-</net.cpacm.library.SimpleSliderLayout>
-```
-
-### Config in your code
-
-```java
-simpleSliderLayout.setCycling(true);
-simpleSliderLayout.setAutoCycling(true);
-simpleSliderLayout.setSliderDuration(3000);
-simpleSliderLayout.setSliderTransformDuration(1000);
-simpleSliderLayout.setPageTransformer(new FlipPageViewTransformer());
-simpleSliderLayout.setAnimationListener(null);
-circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-simpleSliderLayout.setViewPagerIndicator(circlePageIndicator);
-simpleSliderLayout.setAnimationListener(new DefaultDescriptionAnimation());
 ```
  
 ## Advanced usage
-
-### Slider
-- `ImageSliderView` include ImageView
-- `DescriptionSliderView` include ImageView and TextView
-
-**You can customize the Slider extends `BaseSliderView`**
 
 ### Indicator
 
