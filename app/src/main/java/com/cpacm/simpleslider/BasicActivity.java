@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.cpacm.library.SimpleViewPager;
 import com.cpacm.library.transformers.CyclePageTransformer;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import com.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
 
@@ -16,7 +15,6 @@ public class BasicActivity extends AppCompatActivity {
 
     private SimpleViewPager simpleSlider;
     private CirclePageIndicator circlePageIndicator;
-    private ImageLoader imageLoader = ImageLoader.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +27,6 @@ public class BasicActivity extends AppCompatActivity {
         simpleSlider = (SimpleViewPager) findViewById(R.id.simple_slider);
         simpleSlider.setAdapter(new BasicPagerAdapter(this));
         simpleSlider.startAutoScroll(true);
-        //simpleSlider.setCycling(true);//无限循环
-        //simpleSlider.setSliderDuration(3000);//每隔3秒进行翻页
-        //simpleSlider.setSliderTransformDuration(1000);//翻页的速度为1秒
         simpleSlider.setPageTransformer(new CyclePageTransformer(simpleSlider));//翻页动画
         //circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         //simpleSlider.setViewPagerIndicator(circlePageIndicator);//为viewpager设置指示器

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +21,9 @@ import java.util.List;
 public class BasicPagerAdapter extends PagerAdapter {
 
     private List<Integer> covers;
-    private Context context;
     private LayoutInflater layoutInflater;
 
     public BasicPagerAdapter(Context context) {
-        this.context = context;
         covers = getBannerList();
         layoutInflater = LayoutInflater.from(context);
     }

@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="net.cpacm.simpleslider.SliderActivity">
+    tools:context="com.cpacm.simpleslider.SliderActivity">
 
     <Button
         android:id="@+id/basic"
@@ -45,17 +45,4 @@
         android:text="Indicator\n(指示器)"
         android:textColor="#ffffff"
         android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/animation"
-        android:layout_width="240dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="Animation\n(动画)"
-        android:visibility="gone"
-        android:textColor="#ffffff"
-        android:textSize="18sp" />
-
 </LinearLayout>

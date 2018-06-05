@@ -16,7 +16,6 @@
 
 package com.cpacm.simpleslider;
 
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,9 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.cpacm.library.SimpleViewPager;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
-import com.cpacm.library.SimpleSliderLayout;
 import com.cpacm.library.indicator.SpringIndicator.SpringIndicator;
 import com.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
 import com.cpacm.library.indicator.ViewpagerIndicator.IconPageIndicator;
@@ -42,7 +39,6 @@ public class IndicatorActivity extends AppCompatActivity {
     private LinePageIndicator linePageIndicator;
     private UnderlinePageIndicator underlinePageIndicator;
     private SpringIndicator springIndicator;
-    private ImageLoader imageLoader = ImageLoader.getInstance();
 
     private static final int[] ICONS = new int[]{
             R.drawable.perm_group_calendar,

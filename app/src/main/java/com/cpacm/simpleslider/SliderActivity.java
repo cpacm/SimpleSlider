@@ -24,15 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.nostra13.universalimageloader.utils.StorageUtils;
-
-import java.io.File;
 
 public class SliderActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,21 +37,6 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.basic).setOnClickListener(this);
         findViewById(R.id.transform).setOnClickListener(this);
         findViewById(R.id.indicator).setOnClickListener(this);
-        findViewById(R.id.animation).setOnClickListener(this);
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration
-                .Builder(this)
-                .threadPoolSize(3)//线程池内加载的数量
-                .threadPriority(Thread.NORM_PRIORITY - 2)
-                .memoryCacheSize(20 * 1024 * 1024)
-                .diskCacheSize(50 * 1024 * 1024)
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .diskCacheFileCount(100) //缓存的文件数量
-                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-                .imageDownloader(new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
-                .writeDebugLogs() // Remove for releaseapp
-                .build();//开始构建
-        ImageLoader.getInstance().init(config);
     }
 
     @Override
