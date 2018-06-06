@@ -34,7 +34,7 @@ dependencies {
 
 ### Add the slider to your layout
 ```xml
-<com.cpacm.library.SimpleSlider
+<com.cpacm.library.SimpleViewPager
     android:id="@+id/simple_slider"
     android:layout_width="match_parent"
     android:layout_height="140dp">
