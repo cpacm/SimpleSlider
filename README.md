@@ -19,8 +19,17 @@ I wrote this library just because I want a lightweight slider.
 
 ```groovy
 dependencies {
-    compile 'com.cpacm.simpleslider:library:2.1.0'
+    implementation 'com.cpacm.simpleslider:library:2.1.0'
 }
+
+if module has conflict, use
+如果有组件冲突，可以使用以下方法导入
+dependencies {
+    implementation (com.cpacm.simpleslider:library:2.1.0){
+        exclude module: 'appcompat-v7'
+    }
+}
+
 ```
 
 ### Add the slider to your layout
@@ -50,6 +59,7 @@ circlePageIndicator.setViewPager(simpleSlider);
 ### Basic
 ![indicator](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/BasicSlider.gif)
 
+两种轮播器，一种是普通模式，一种是回廊模式。
 
 ### Indicator
 
@@ -66,6 +76,8 @@ The above indicators modified from [ViewPagerIndicator](https://github.com/JakeW
 
 Modify from [SpringIndicator](https://github.com/chenupt/SpringIndicator)
 
+多种样式的指示器，可以根据场景选择适合的样式使用。
+
 **You can customize the indicator implements `PageIndicator`**
 
 ### Transform
@@ -75,7 +87,11 @@ The above transforms come from [AndroidImageSlider](https://github.com/daimajia/
 
 **You can customize the transform extends `BaseTransformer`**
 
+丰富的过场动画（上面的回廊式轮播就可以通过设置 Transform 来实现）
+
 ## **Note:**
+无限轮播最低要求有三张页面。
+
 **In the infinite loop mode, at least three sliders.**
 **Android API >= 3.0**
 
