@@ -3,8 +3,8 @@ package com.cpacm.simpleslider;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Interpolator;
 
 import com.cpacm.library.SimpleViewPager;
 import com.cpacm.library.transformers.CyclePageTransformer;
@@ -12,9 +12,10 @@ import com.cpacm.library.transformers.CyclePageTransformer;
 import com.cpacm.library.indicator.ViewpagerIndicator.CirclePageIndicator;
 
 public class BasicActivity extends AppCompatActivity {
+    private final static int DEFAULT_SCROLL_DURATION = 500;
 
-    private SimpleViewPager simpleSlider;
-    private CirclePageIndicator circlePageIndicator;
+
+    SimpleViewPager simpleSlider, simpleSlider2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +28,13 @@ public class BasicActivity extends AppCompatActivity {
         simpleSlider = (SimpleViewPager) findViewById(R.id.simple_slider);
         simpleSlider.setAdapter(new BasicPagerAdapter(this));
         simpleSlider.startAutoScroll(true);
-        simpleSlider.setPageTransformer(new CyclePageTransformer(simpleSlider));//翻页动画
-        //circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        //simpleSlider.setViewPagerIndicator(circlePageIndicator);//为viewpager设置指示器
+        simpleSlider.setSliderTransformDuration(DEFAULT_SCROLL_DURATION, new SpringInterpolator());
+
+        simpleSlider2 = (SimpleViewPager) findViewById(R.id.simple_slider2);
+        simpleSlider2.setAdapter(new BasicPagerAdapter(this));
+        simpleSlider2.startAutoScroll(true);
+        simpleSlider2.setPageTransformer(new CyclePageTransformer(simpleSlider2));//翻页动画
+
     }
 
     @Override
@@ -42,5 +47,17 @@ public class BasicActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //spring interpolator
+    private final class SpringInterpolator implements Interpolator {
+
+        private final static float FACTOR = 0.5F;
+
+        @Override
+        public float getInterpolation(final float input) {
+            return (float) (Math.pow(2.0F, -10.0F * input) *
+                    Math.sin((input - FACTOR / 4.0F) * (2.0F * Math.PI) / FACTOR) + 1.0F);
+        }
     }
 }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SimpleSlider</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">author</string>
     <string name="basic">Basic</string>
     <string name="transform">Transform</string>
     <string name="indicator">Indicator</string>

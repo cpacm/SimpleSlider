@@ -3,16 +3,15 @@
 I wrote this library just because I want a lightweight slider.
 >Use your own imageloader;  
 >Create your own indicator;  
->Variety of transition effects;  
->Customize the animation of each page.
+>Variety of transition effects.
 
-~(～￣▽￣)～
+这是一款轻量级的图片轮播器，它包括了一下几个特点：
 
-## Demo
+>与图片加载框架完全解耦；
+>内置常用的指示器，基本满足对指示器的需求；
+>丰富多彩的转场动画，亦可以发挥你的创意创造新的特效；
+>内置不同款式的轮播器。
 
-[中文文档](http://www.cpacm.net/2016/06/03/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%EF%BC%9A%E4%B8%80%E4%B8%AA%E9%AB%98%E5%BA%A6%E8%87%AA%E7%94%B1%E7%9A%84%E8%BD%BB%E9%87%8F%E5%8C%96Slider/)
-
-![simpleslider](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/simpleslider.png)
  
 ## How to use
 
@@ -20,15 +19,41 @@ I wrote this library just because I want a lightweight slider.
 
 ```groovy
 dependencies {
-    	compile 'com.cpacm.simpleslider:library:2.0.0'
+    compile 'com.cpacm.simpleslider:library:2.1.0'
 }
 ```
- 
+
+### Add the slider to your layout
+```xml
+<com.cpacm.library.SimpleSlider
+    android:id="@+id/simple_slider"
+    android:layout_width="match_parent"
+    android:layout_height="140dp">
+
+</com.cpacm.library.SimpleSlider>
+```
+
+### Config in your code
+
+```java
+simpleSlider.setInfiniteEnable(true);
+simpleSlider.startAutoScroll(true);
+simpleSlider.setSliderDuration(3000);
+simpleSlider.setSliderTransformDuration(DEFAULT_SCROLL_DURATION, new SpringInterpolator());
+simpleSlider.setPageTransformer(new ZoomOutSlideTransformer());
+circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+circlePageIndicator.setViewPager(simpleSlider);
+```
+
 ## Advanced usage
+
+### Basic
+![indicator](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/BasicSlider.gif)
+
 
 ### Indicator
 
-![indicator](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/simpleslider_indicator.gif)
+![indicator](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/IndicatorSlider.gif)
 
 - `CirclePageIndicator`
 - `IconPageIndicator`
@@ -44,16 +69,11 @@ Modify from [SpringIndicator](https://github.com/chenupt/SpringIndicator)
 **You can customize the indicator implements `PageIndicator`**
 
 ### Transform
-![Transform](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/simpleslider_transform.gif)
+![Transform](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/TransformSlider.gif)
 
 The above transforms come from [AndroidImageSlider](https://github.com/daimajia/AndroidImageSlider) 
 
 **You can customize the transform extends `BaseTransformer`**
-
-### Animation
-![Transform](https://raw.githubusercontent.com/cpacm/SimpleSlider/develop/pic/simpleslider_animation.gif)
-
-**You can customize the animation implements `OnAnimationListener`**
 
 ## **Note:**
 **In the infinite loop mode, at least three sliders.**
@@ -62,7 +82,7 @@ The above transforms come from [AndroidImageSlider](https://github.com/daimajia/
 License
 ---
 
-    Copyright 2016 cpacm
+    Copyright 2018 cpacm
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -20,7 +20,7 @@
         android:layout_marginBottom="20dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:text="Basic\n(基本使用)"
+        android:text="Basic\n(基本样式)"
         android:textColor="#ffffff"
         android:textSize="18sp" />
 

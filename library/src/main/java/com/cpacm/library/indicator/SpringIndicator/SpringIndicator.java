@@ -170,6 +170,13 @@ public class SpringIndicator extends FrameLayout implements PageIndicator {
             if (textBgResId != 0) {
                 textView.setBackgroundResource(textBgResId);
             }
+            final int finalI = i;
+            textView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewPager.setCurrentItem(finalI);
+                }
+            });
             textView.setLayoutParams(layoutParams);
             tabs.add(textView);
             tabContainer.addView(textView);

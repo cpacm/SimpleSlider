@@ -33,18 +33,22 @@ import com.cpacm.library.transformers.AccordionTransformer;
 import com.cpacm.library.transformers.BackgroundToForegroundTransformer;
 import com.cpacm.library.transformers.BaseTransformer;
 import com.cpacm.library.transformers.CubeInTransformer;
+import com.cpacm.library.transformers.CubeOutTransformer;
 import com.cpacm.library.transformers.DefaultTransformer;
 import com.cpacm.library.transformers.DepthPageTransformer;
+import com.cpacm.library.transformers.DrawerTransformer;
 import com.cpacm.library.transformers.FadeTransformer;
 import com.cpacm.library.transformers.FlipHorizontalTransformer;
 import com.cpacm.library.transformers.FlipPageViewTransformer;
 import com.cpacm.library.transformers.ForegroundToBackgroundTransformer;
 import com.cpacm.library.transformers.RotateDownTransformer;
 import com.cpacm.library.transformers.RotateUpTransformer;
+import com.cpacm.library.transformers.ScaleInOutTransformer;
 import com.cpacm.library.transformers.StackTransformer;
 import com.cpacm.library.transformers.TabletTransformer;
 import com.cpacm.library.transformers.ZoomInTransformer;
 import com.cpacm.library.transformers.ZoomOutSlideTransformer;
+import com.cpacm.library.transformers.ZoomOutTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +69,7 @@ public class TransformActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         simpleViewPager = (SimpleViewPager) findViewById(R.id.simple_slider);
+        simpleViewPager.startAutoScroll(true);
 
         initTransforms();
 
@@ -78,13 +83,6 @@ public class TransformActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -93,15 +91,12 @@ public class TransformActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             finish();
         }
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
     public class TransformAdapter extends RecyclerView.Adapter<TransformAdapter.NormalTextViewHolder> {
+
+        private int selectIndex = -1;
 
         @Override
         public NormalTextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -109,12 +104,21 @@ public class TransformActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(NormalTextViewHolder holder, final int position) {
+        public void onBindViewHolder(final NormalTextViewHolder holder, final int position) {
             holder.mTextView.setText(transformerNames.get(position));
+            if (selectIndex == position) {
+                holder.mTextView.setTextColor(getResources().getColor(R.color.colorPrimary));
+            } else {
+                holder.mTextView.setTextColor(getResources().getColor(android.R.color.black));
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     simpleViewPager.setPageTransformer(transformers.get(position));
+                    int lastPosition = selectIndex;
+                    selectIndex = position;
+                    notifyItemChanged(lastPosition);
+                    notifyItemChanged(selectIndex);
                 }
             });
         }
@@ -139,48 +143,60 @@ public class TransformActivity extends AppCompatActivity {
         transformerNames = new ArrayList<>();
 
         transformers.add(new AccordionTransformer());
-        transformerNames.add("AccordionTransformer");
+        transformerNames.add(AccordionTransformer.class.getSimpleName());
 
         transformers.add(new BackgroundToForegroundTransformer());
-        transformerNames.add("BackgroundToForegroundTransformer");
+        transformerNames.add(BackgroundToForegroundTransformer.class.getSimpleName());
 
         transformers.add(new CubeInTransformer());
-        transformerNames.add("CubeInTransformer");
+        transformerNames.add(CubeInTransformer.class.getSimpleName());
+
+        transformers.add(new CubeOutTransformer());
+        transformerNames.add(CubeOutTransformer.class.getSimpleName());
 
         transformers.add(new DefaultTransformer());
-        transformerNames.add("DefaultTransformer");
+        transformerNames.add(DefaultTransformer.class.getSimpleName());
 
         transformers.add(new DepthPageTransformer());
-        transformerNames.add("DepthPageTransformer");
+        transformerNames.add(DepthPageTransformer.class.getSimpleName());
+
+        transformers.add(new DrawerTransformer());
+        transformerNames.add(DrawerTransformer.class.getSimpleName());
 
         transformers.add(new FadeTransformer());
-        transformerNames.add("FadeTransformer");
+        transformerNames.add(FadeTransformer.class.getSimpleName());
 
         transformers.add(new FlipHorizontalTransformer());
-        transformerNames.add("FlipHorizontalTransformer");
+        transformerNames.add(FlipHorizontalTransformer.class.getSimpleName());
 
         transformers.add(new FlipPageViewTransformer());
-        transformerNames.add("FlipPageViewTransformer");
+        transformerNames.add(FlipPageViewTransformer.class.getSimpleName());
 
         transformers.add(new ForegroundToBackgroundTransformer());
-        transformerNames.add("ForegroundToBackgroundTransformer");
+        transformerNames.add(ForegroundToBackgroundTransformer.class.getSimpleName());
 
         transformers.add(new RotateDownTransformer());
-        transformerNames.add("RotateDownTransformer");
+        transformerNames.add(RotateDownTransformer.class.getSimpleName());
 
         transformers.add(new RotateUpTransformer());
-        transformerNames.add("RotateUpTransformer");
+        transformerNames.add(RotateUpTransformer.class.getSimpleName());
+
+        transformers.add(new ScaleInOutTransformer());
+        transformerNames.add(ScaleInOutTransformer.class.getSimpleName());
 
         transformers.add(new StackTransformer());
-        transformerNames.add("StackTransformer");
+        transformerNames.add(StackTransformer.class.getSimpleName());
 
         transformers.add(new TabletTransformer());
-        transformerNames.add("TabletTransformer");
+        transformerNames.add(TabletTransformer.class.getSimpleName());
 
         transformers.add(new ZoomInTransformer());
-        transformerNames.add("ZoomInTransformer");
+        transformerNames.add(ZoomInTransformer.class.getSimpleName());
 
         transformers.add(new ZoomOutSlideTransformer());
-        transformerNames.add("ZoomOutSlideTransformer");
+        transformerNames.add(ZoomOutSlideTransformer.class.getSimpleName());
+
+        transformers.add(new ZoomOutTransformer());
+        transformerNames.add(ZoomOutTransformer.class.getSimpleName());
     }
 }

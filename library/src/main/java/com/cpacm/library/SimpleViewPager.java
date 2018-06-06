@@ -27,7 +27,7 @@ public class SimpleViewPager extends ViewPager {
 
     private int count;//item count
     private boolean autoScroll = false;
-    private boolean isCycling = true;
+    private boolean infiniteEnable = true;
     private boolean scrollPositive = true;
     private boolean mIsDataSetChanged;
 
@@ -62,11 +62,6 @@ public class SimpleViewPager extends ViewPager {
 
     private void init(Context context, AttributeSet attributeSet) {
 
-        //resetScroller();
-    }
-
-    private void resetScroller() {
-        setSliderTransformDuration(DEFAULT_SCROLL_DURATION, new SpringInterpolator());
     }
 
     /**
@@ -87,7 +82,7 @@ public class SimpleViewPager extends ViewPager {
     }
 
     public void setPageTransformer(PageTransformer transformer) {
-        setPageTransformer(false, transformer);
+        setPageTransformer(true, transformer);
     }
 
     @Override
@@ -97,7 +92,7 @@ public class SimpleViewPager extends ViewPager {
 
     @Override
     public void setAdapter(@Nullable PagerAdapter adapter) {
-        if (adapter != null && adapter.getCount() >= MIN_CYCLE_COUNT) {
+        if (adapter != null && adapter.getCount() >= MIN_CYCLE_COUNT && infiniteEnable) {
             count = adapter.getCount();
             infinitePagerAdapter = new InfinitePagerAdapter(adapter);
             super.setAdapter(infinitePagerAdapter);
@@ -190,7 +185,7 @@ public class SimpleViewPager extends ViewPager {
      * @return
      */
     public int getRealItem() {
-        if (getRealAdapter() == null || getRealAdapter().getCount() < MIN_CYCLE_COUNT)
+        if (getRealAdapter() == null || getRealAdapter().getCount() < MIN_CYCLE_COUNT || !infiniteEnable)
             return getCurrentItem();
         return infinitePagerAdapter.getRealPosition(getCurrentItem());
     }
@@ -234,7 +229,7 @@ public class SimpleViewPager extends ViewPager {
         this.scrollPositive = scrollPositive;
 
         autoScrollHandler.removeCallbacks(autoScrollRunnable);
-        autoScrollHandler.postDelayed(autoScrollRunnable,sliderDuration);
+        autoScrollHandler.postDelayed(autoScrollRunnable, sliderDuration);
     }
 
     // Stop auto scroll
@@ -242,6 +237,15 @@ public class SimpleViewPager extends ViewPager {
         if (!autoScroll) return;
         autoScroll = false;
         autoScrollHandler.removeCallbacks(autoScrollRunnable);
+    }
+
+    public boolean isInfiniteEnable() {
+        return infiniteEnable;
+    }
+
+    public void setInfiniteEnable(boolean enableInfinite) {
+        this.infiniteEnable = enableInfinite;
+        setAdapter(getRealAdapter());
     }
 
     @Override
@@ -277,17 +281,5 @@ public class SimpleViewPager extends ViewPager {
 
     public void setInitialItem(boolean initialItem) {
         this.isInitialItem = initialItem;
-    }
-
-    // Default spring interpolator
-    private final class SpringInterpolator implements Interpolator {
-
-        private final static float FACTOR = 0.5F;
-
-        @Override
-        public float getInterpolation(final float input) {
-            return (float) (Math.pow(2.0F, -10.0F * input) *
-                    Math.sin((input - FACTOR / 4.0F) * (2.0F * Math.PI) / FACTOR) + 1.0F);
-        }
     }
 }

@@ -92,6 +92,12 @@ public class CyclePageTransformer extends BaseTransformer {
     }
 
     @Override
+    public void transformPage(View page, float position) {
+        onTransform(page, position);
+    }
+
+
+    @Override
     public void onTransform(final View page, final float position) {
         // Handle page layer and bounds visibility
         enableHardwareLayer(page);

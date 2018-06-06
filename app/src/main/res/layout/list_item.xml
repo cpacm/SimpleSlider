@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:layout_margin="4dp"
-    android:background="?attr/selectableItemBackground">
+    android:gravity="center"
+    tools:text="transform"
+    android:drawableBottom="@android:drawable/divider_horizontal_bright"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall" />
 
-    <TextView
-        android:id="@android:id/text1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall" />
 
-</android.support.v7.widget.CardView>

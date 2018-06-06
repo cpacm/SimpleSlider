@@ -27,6 +27,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import com.cpacm.library.R;
+import com.cpacm.library.SimpleViewPager;
 import com.cpacm.library.indicator.PageIndicator;
 import com.cpacm.library.infinite.InfinitePagerAdapter;
 
@@ -131,13 +132,21 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
 
     public void notifyDataSetChanged() {
         if (iconList.size() == 0) return;
+        if (mViewPager.getAdapter() == null) return;
         mIconsLayout.removeAllViews();
         int count = mViewPager.getAdapter().getCount();
         if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
             count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
         }
         for (int i = 0; i < count; i++) {
-            ImageView view = new ImageView(getContext(), null, R.attr.vpiIconPageIndicatorStyle);
+            final ImageView view = new ImageView(getContext(), null, R.attr.vpiIconPageIndicatorStyle);
+            final int finalI = i;
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mViewPager.setCurrentItem(finalI);
+                }
+            });
             view.setImageResource(iconList.get(i % iconList.size()));
             mIconsLayout.addView(view);
         }
