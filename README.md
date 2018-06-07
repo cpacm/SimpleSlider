@@ -25,7 +25,7 @@ dependencies {
 if module has conflict, use
 如果有组件冲突，可以使用以下方法导入
 dependencies {
-    implementation (com.cpacm.simpleslider:library:2.1.0){
+    implementation ('com.cpacm.simpleslider:library:2.1.0'){
         exclude module: 'appcompat-v7'
     }
 }
