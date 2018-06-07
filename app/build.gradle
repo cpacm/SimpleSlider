@@ -8,8 +8,8 @@ android {
         applicationId "com.cpacm.simpleslider"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 7
-        versionName "2.1.2"
+        versionCode 8
+        versionName "2.2.0"
     }
     buildTypes {
         release {

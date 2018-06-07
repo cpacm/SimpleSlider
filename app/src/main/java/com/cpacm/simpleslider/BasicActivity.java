@@ -48,10 +48,7 @@ public class BasicActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            //finish();
-            simpleSlider.setInfiniteEnable(false);
-            //adapter2.setCovers();
-            simpleSlider2.notifyDataSetChanged();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cpacm.library.R;
+import com.cpacm.library.SimpleViewPager;
 import com.cpacm.library.indicator.PageIndicator;
 import com.cpacm.library.infinite.InfinitePagerAdapter;
 
@@ -174,7 +175,16 @@ public class SpringIndicator extends FrameLayout implements PageIndicator {
             textView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    viewPager.setCurrentItem(finalI);
+                    if (viewPager instanceof SimpleViewPager) {
+                        SimpleViewPager simpleViewPager = (SimpleViewPager) viewPager;
+                        if (finalI > simpleViewPager.getRealItem()) {
+                            simpleViewPager.scrollToNextItem();
+                        } else if (finalI < simpleViewPager.getRealItem()) {
+                            simpleViewPager.scrollToPreItem();
+                        }
+                    } else {
+                        viewPager.setCurrentItem(finalI);
+                    }
                 }
             });
             textView.setLayoutParams(layoutParams);

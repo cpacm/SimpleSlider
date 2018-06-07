@@ -144,7 +144,16 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mViewPager.setCurrentItem(finalI);
+                    if (mViewPager instanceof SimpleViewPager) {
+                        SimpleViewPager simpleViewPager = (SimpleViewPager) mViewPager;
+                        if (finalI > simpleViewPager.getRealItem()) {
+                            simpleViewPager.scrollToNextItem();
+                        } else if (finalI < simpleViewPager.getRealItem()) {
+                            simpleViewPager.scrollToPreItem();
+                        }
+                    } else {
+                        mViewPager.setCurrentItem(finalI);
+                    }
                 }
             });
             view.setImageResource(iconList.get(i % iconList.size()));

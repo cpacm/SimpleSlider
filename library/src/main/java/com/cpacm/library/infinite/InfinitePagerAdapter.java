@@ -65,6 +65,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
         return virtualPosition % adapter.getCount();
     }
 
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         if (adapter == null) throw new UnsupportedOperationException(

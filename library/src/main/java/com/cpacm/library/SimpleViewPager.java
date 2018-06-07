@@ -61,7 +61,7 @@ public class SimpleViewPager extends ViewPager {
 
     private void init(Context context, AttributeSet attributeSet) {
         infinitePagerAdapter = new InfinitePagerAdapter();
-        setAdapter(infinitePagerAdapter);
+        super.setAdapter(infinitePagerAdapter);
     }
 
     /**
@@ -92,7 +92,7 @@ public class SimpleViewPager extends ViewPager {
 
     @Override
     public void setAdapter(@Nullable PagerAdapter adapter) {
-        if(adapter == null) throw new NullPointerException("You have to set adapter");
+        if (adapter == null) throw new NullPointerException("You have to set adapter");
         count = adapter.getCount();
         infinitePagerAdapter.setAdapter(adapter);
         notifyDataSetChanged();
@@ -154,6 +154,17 @@ public class SimpleViewPager extends ViewPager {
         super.setCurrentItem(getVirtualCurrentItem(item), smoothScroll);
     }
 
+
+    //scroll to next item
+    public void scrollToNextItem() {
+        setCurrentItem(getRealItem() + 1);
+    }
+
+    //scroll to previous item
+    public void scrollToPreItem() {
+        setCurrentItem(getRealItem() - 1);
+    }
+
     // Set current item where you put original adapter position and this method calculate nearest
     // position to scroll from center if at first initial position or nearest position of old position
     public int getVirtualCurrentItem(final int item) {
@@ -164,7 +175,7 @@ public class SimpleViewPager extends ViewPager {
     }
 
     public void resetPager() {
-        if (infinitePagerAdapter.isInfiniteEnable()&&infinitePagerAdapter.getRealCount()>MIN_CYCLE_COUNT) {
+        if (infinitePagerAdapter.isInfiniteEnable() && infinitePagerAdapter.getRealCount() > MIN_CYCLE_COUNT) {
             super.setCurrentItem(((infinitePagerAdapter.getCount() / 2) / count) * count);
         } else {
             setCurrentItem(0);
