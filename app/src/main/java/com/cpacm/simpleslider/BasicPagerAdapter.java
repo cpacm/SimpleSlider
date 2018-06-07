@@ -28,6 +28,14 @@ public class BasicPagerAdapter extends PagerAdapter {
         layoutInflater = LayoutInflater.from(context);
     }
 
+    public void setCovers(){
+        covers.clear();
+        covers.add(R.drawable.cover00);
+        covers.add(R.drawable.cover01);
+        covers.add(R.drawable.cover02);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {

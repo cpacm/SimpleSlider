@@ -27,7 +27,6 @@ public class SimpleViewPager extends ViewPager {
 
     private int count;//item count
     private boolean autoScroll = false;
-    private boolean infiniteEnable = true;
     private boolean scrollPositive = true;
     private boolean mIsDataSetChanged;
 
@@ -61,7 +60,8 @@ public class SimpleViewPager extends ViewPager {
     }
 
     private void init(Context context, AttributeSet attributeSet) {
-
+        infinitePagerAdapter = new InfinitePagerAdapter();
+        setAdapter(infinitePagerAdapter);
     }
 
     /**
@@ -92,16 +92,11 @@ public class SimpleViewPager extends ViewPager {
 
     @Override
     public void setAdapter(@Nullable PagerAdapter adapter) {
-        if (adapter != null && adapter.getCount() >= MIN_CYCLE_COUNT && infiniteEnable) {
-            count = adapter.getCount();
-            infinitePagerAdapter = new InfinitePagerAdapter(adapter);
-            super.setAdapter(infinitePagerAdapter);
-            resetPager();
-        } else {
-            infinitePagerAdapter = null;
-            count = adapter.getCount();
-            super.setAdapter(adapter);
-        }
+        if(adapter == null) throw new NullPointerException("You have to set adapter");
+        count = adapter.getCount();
+        infinitePagerAdapter.setAdapter(adapter);
+        notifyDataSetChanged();
+        resetPager();
     }
 
     public void setSliderDuration(long sliderDuration) {
@@ -110,14 +105,12 @@ public class SimpleViewPager extends ViewPager {
 
     @Nullable
     public PagerAdapter getRealAdapter() {
-        if (infinitePagerAdapter == null) return super.getAdapter();
         return infinitePagerAdapter.getRealAdapter();
     }
 
     @Nullable
     @Override
     public PagerAdapter getAdapter() {
-        if (infinitePagerAdapter == null) return super.getAdapter();
         return infinitePagerAdapter;
     }
 
@@ -164,14 +157,14 @@ public class SimpleViewPager extends ViewPager {
     // Set current item where you put original adapter position and this method calculate nearest
     // position to scroll from center if at first initial position or nearest position of old position
     public int getVirtualCurrentItem(final int item) {
-        if (getRealAdapter() == null || getRealAdapter().getCount() < MIN_CYCLE_COUNT) return item;
+        if (getRealAdapter() == null) return item;
 
         final int count = getRealAdapter().getCount();
         return getCurrentItem() + Math.min(count, item) - getRealItem();
     }
 
     public void resetPager() {
-        if (infinitePagerAdapter != null) {
+        if (infinitePagerAdapter.isInfiniteEnable()&&infinitePagerAdapter.getRealCount()>MIN_CYCLE_COUNT) {
             super.setCurrentItem(((infinitePagerAdapter.getCount() / 2) / count) * count);
         } else {
             setCurrentItem(0);
@@ -185,8 +178,6 @@ public class SimpleViewPager extends ViewPager {
      * @return
      */
     public int getRealItem() {
-        if (getRealAdapter() == null || getRealAdapter().getCount() < MIN_CYCLE_COUNT || !infiniteEnable)
-            return getCurrentItem();
         return infinitePagerAdapter.getRealPosition(getCurrentItem());
     }
 
@@ -194,15 +185,8 @@ public class SimpleViewPager extends ViewPager {
      * 当数据更新时调用此方法刷新
      */
     public void notifyDataSetChanged() {
-        setAdapter(getRealAdapter());
-        if (infinitePagerAdapter != null) {
-            infinitePagerAdapter.notifyDataSetChanged();
-            mIsDataSetChanged = true;
-        } else {
-            if (getRealAdapter() != null) {
-                getRealAdapter().notifyDataSetChanged();
-            }
-        }
+        infinitePagerAdapter.notifyDataSetChanged();
+        mIsDataSetChanged = true;
         postInvalidateTransformer();
     }
 
@@ -241,12 +225,11 @@ public class SimpleViewPager extends ViewPager {
     }
 
     public boolean isInfiniteEnable() {
-        return infiniteEnable;
+        return infinitePagerAdapter.isInfiniteEnable();
     }
 
     public void setInfiniteEnable(boolean enableInfinite) {
-        this.infiniteEnable = enableInfinite;
-        setAdapter(getRealAdapter());
+        infinitePagerAdapter.setInfiniteEnable(enableInfinite);
     }
 
     @Override

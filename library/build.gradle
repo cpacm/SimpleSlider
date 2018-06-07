@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = '2.1.0'
+version = '2.1.2'
 
 android {
     compileSdkVersion 27
@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 27
-        versionCode 5
-        versionName "2.1.0"
+        versionCode 7
+        versionName "2.1.2"
     }
     buildTypes {
         release {
@@ -104,9 +104,9 @@ bintray {
         issueTrackerUrl = 'https://github.com/cpacm/SimpleSlider/issues'
         publicDownloadNumbers = true
         version {
-            name = '2.1.0'
+            name = '2.1.2'
             desc = 'simple slider release'
-            vcsTag = '2.1.0'
+            vcsTag = '2.1.2'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
     }

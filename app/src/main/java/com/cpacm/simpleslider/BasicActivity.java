@@ -1,6 +1,7 @@
 package com.cpacm.simpleslider;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ public class BasicActivity extends AppCompatActivity {
 
 
     SimpleViewPager simpleSlider, simpleSlider2;
+    private BasicPagerAdapter adapter,adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +27,17 @@ public class BasicActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        adapter = new BasicPagerAdapter(this);
         simpleSlider = (SimpleViewPager) findViewById(R.id.simple_slider);
-        simpleSlider.setAdapter(new BasicPagerAdapter(this));
+        simpleSlider.setAdapter(adapter);
         simpleSlider.startAutoScroll(true);
         simpleSlider.setSliderTransformDuration(DEFAULT_SCROLL_DURATION, new SpringInterpolator());
 
+        adapter2 = new BasicPagerAdapter(this);
         simpleSlider2 = (SimpleViewPager) findViewById(R.id.simple_slider2);
-        simpleSlider2.setAdapter(new BasicPagerAdapter(this));
+        simpleSlider2.setAdapter(adapter2);
         simpleSlider2.startAutoScroll(true);
-        simpleSlider2.setPageTransformer(new CyclePageTransformer(simpleSlider2));//翻页动画
+        simpleSlider2.setPageTransformer(new CyclePageTransformer(simpleSlider2));//翻页动画*/
 
     }
 
@@ -44,7 +48,10 @@ public class BasicActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            finish();
+            //finish();
+            simpleSlider.setInfiniteEnable(false);
+            //adapter2.setCovers();
+            simpleSlider2.notifyDataSetChanged();
         }
         return super.onOptionsItemSelected(item);
     }
