@@ -194,6 +194,7 @@ public class SimpleViewPager extends ViewPager {
      * 当数据更新时调用此方法刷新
      */
     public void notifyDataSetChanged() {
+        setAdapter(getRealAdapter());
         if (infinitePagerAdapter != null) {
             infinitePagerAdapter.notifyDataSetChanged();
             mIsDataSetChanged = true;

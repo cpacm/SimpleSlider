@@ -39,6 +39,7 @@ public class InfinitePagerAdapter extends PagerAdapter {
         // strange drawing behaviour
         if (getRealCount() == 0) return 0;
         if (getRealCount() == 1) return 1;
+        if (getRealCount() == 2) return 2;
         return VIRTUAL_ITEM_COUNT;
     }
 
