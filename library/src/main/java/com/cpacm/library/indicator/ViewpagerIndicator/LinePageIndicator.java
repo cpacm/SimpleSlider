@@ -164,12 +164,13 @@ public class LinePageIndicator extends View implements PageIndicator {
             return;
         }
         int count = mViewPager.getAdapter().getCount();
+        if (count == 0) {
+            return;
+        }
+
         if (mViewPager.getAdapter() instanceof InfinitePagerAdapter) {
             count = ((InfinitePagerAdapter) mViewPager.getAdapter()).getRealCount();
             mCurrentPage = mCurrentPage % count;
-        }
-        if (count == 0) {
-            return;
         }
 
         if (mCurrentPage >= count) {

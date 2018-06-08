@@ -7,9 +7,9 @@ I wrote this library just because I want a lightweight slider.
 
 这是一款轻量级的图片轮播器，它包括了一下几个特点：
 
->与图片加载框架完全解耦；
->内置常用的指示器，基本满足对指示器的需求；
->丰富多彩的转场动画，亦可以发挥你的创意创造新的特效；
+>与图片加载框架完全解耦;  
+>内置常用的指示器，基本满足对指示器的需求；  
+>丰富多彩的转场动画，亦可以发挥你的创意创造新的特效；  
 >内置不同款式的轮播器。
 
  
@@ -52,6 +52,10 @@ simpleSlider.setSliderTransformDuration(DEFAULT_SCROLL_DURATION, new SpringInter
 simpleSlider.setPageTransformer(new ZoomOutSlideTransformer());
 circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
 circlePageIndicator.setViewPager(simpleSlider);
+//when adapter's data changed, you should call this method
+//当adapter数据更新时，必须要调用
+simpleSLider.notifyDataSetChanged();
+
 ```
 
 ## Advanced usage
