@@ -1,13 +1,13 @@
 package com.cpacm.library.transformers;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 /**
  * This is all transformers father.
  * <p>
  * BaseTransformer implement ViewPager.PageTransformer
- * which is just same as {@link android.support.v4.view.ViewPager.PageTransformer}.
+ * which is just same as {@link ViewPager.PageTransformer}.
  * <p>
  * if you want to make an acceptable transformer, please do not forget to extend from this class.
  */
