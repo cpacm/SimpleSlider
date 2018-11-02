@@ -16,22 +16,12 @@ I wrote this library just because I want a lightweight slider.
 ## How to use
 
 ### Gradle
-
 ```groovy
 dependencies {
-    implementation 'com.cpacm.simpleslider:library:2.2.1'
+    implementation 'com.cpacm.simpleslider:library:2.3.0'
 }
-
-if module has conflict, use
-如果有组件冲突，可以使用以下方法导入
-dependencies {
-    implementation ('com.cpacm.simpleslider:library:2.2.1'){
-        exclude module: 'appcompat-v7'
-    }
-}
-
 ```
-
+> Compile with Android 28 and androidx 
 ### Add the slider to your layout
 ```xml
 <com.cpacm.library.SimpleViewPager
@@ -45,17 +35,16 @@ dependencies {
 ### Config in your code
 
 ```java
-simpleSlider.setInfiniteEnable(true);
-simpleSlider.startAutoScroll(true);
-simpleSlider.setSliderDuration(3000);
-simpleSlider.setSliderTransformDuration(DEFAULT_SCROLL_DURATION, new SpringInterpolator());
-simpleSlider.setPageTransformer(new ZoomOutSlideTransformer());
-circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-circlePageIndicator.setViewPager(simpleSlider);
-//when adapter's data changed, you should call this method
-//当adapter数据更新时，必须要调用
-simpleSLider.notifyDataSetChanged();
-
+    simpleSlider.setInfiniteEnable(true);
+    simpleSlider.startAutoScroll(true);
+    simpleSlider.setSliderDuration(3000);
+    simpleSlider.setSliderTransformDuration(DEFAULT_SCROLL_DURATION, new SpringInterpolator());
+    simpleSlider.setPageTransformer(new ZoomOutSlideTransformer());
+    circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+    circlePageIndicator.setViewPager(simpleSlider);
+    //when adapter's data changed, you should call this method
+    //当adapter数据更新时，必须要调用
+    simpleSLider.notifyDataSetChanged();
 ```
 
 ## Advanced usage
