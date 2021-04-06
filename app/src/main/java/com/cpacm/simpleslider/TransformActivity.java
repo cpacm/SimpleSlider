@@ -16,13 +16,16 @@
 
 package com.cpacm.simpleslider;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,26 +59,24 @@ import java.util.List;
 public class TransformActivity extends AppCompatActivity {
 
     private SimpleViewPager simpleViewPager;
-    private RecyclerView transformList;
     private List<BaseTransformer> transformers;
     private List<String> transformerNames;
-    private TransformAdapter transformAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transform);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        simpleViewPager = (SimpleViewPager) findViewById(R.id.simple_slider);
+        simpleViewPager = findViewById(R.id.simple_slider);
         simpleViewPager.startAutoScroll(true);
 
         initTransforms();
 
-        transformList = (RecyclerView) findViewById(R.id.transform_list);
+        RecyclerView transformList = findViewById(R.id.transform_list);
         transformList.setLayoutManager(new LinearLayoutManager(this));
-        transformAdapter = new TransformAdapter();
+        TransformAdapter transformAdapter = new TransformAdapter();
         transformList.setAdapter(transformAdapter);
 
         simpleViewPager.setAdapter(new BasicPagerAdapter(this));
@@ -98,8 +99,9 @@ public class TransformActivity extends AppCompatActivity {
 
         private int selectIndex = -1;
 
+        @NonNull
         @Override
-        public NormalTextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public NormalTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new NormalTextViewHolder(LayoutInflater.from(TransformActivity.this).inflate(R.layout.list_item, parent, false));
         }
 

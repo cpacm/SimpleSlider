@@ -1,6 +1,5 @@
 /*
- * Copyright 2015 chenupt
- * Copyright 2016 cpacm
+ * Copyright 2020 cpacm
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,9 +47,6 @@ public class SpringIndicator extends FrameLayout implements PageIndicator {
 
     private static final int INDICATOR_ANIM_DURATION = 3000;
 
-    private float acceleration = 0.5f;
-    private float headMoveOffset = 0.6f;
-    private float footMoveOffset = 1 - headMoveOffset;
     private float radiusMax;
     private float radiusMin;
     private float radiusOffset;
@@ -202,10 +198,10 @@ public class SpringIndicator extends FrameLayout implements PageIndicator {
             count = ((InfinitePagerAdapter) viewPager.getAdapter()).getRealCount();
         }
         View view = tabs.get(viewPager.getCurrentItem() % count);
-        springView.getHeadPoint().setX(view.getX() + view.getWidth() / 2);
-        springView.getHeadPoint().setY(view.getY() + view.getHeight() / 2);
-        springView.getFootPoint().setX(view.getX() + view.getWidth() / 2);
-        springView.getFootPoint().setY(view.getY() + view.getHeight() / 2);
+        springView.getHeadPoint().setX(view.getX() + view.getWidth() / 2.0f);
+        springView.getHeadPoint().setY(view.getY() + view.getHeight() / 2.0f);
+        springView.getFootPoint().setX(view.getX() + view.getWidth() / 2.0f);
+        springView.getFootPoint().setY(view.getY() + view.getHeight() / 2.0f);
         springView.animCreate();
     }
 
@@ -231,7 +227,7 @@ public class SpringIndicator extends FrameLayout implements PageIndicator {
     }
 
     private float getTabX(int position) {
-        return tabs.get(position).getX() + tabs.get(position).getWidth() / 2;
+        return tabs.get(position).getX() + tabs.get(position).getWidth() / 2.0f;
     }
 
     private void setSelectedTextColor(int position) {
@@ -292,12 +288,15 @@ public class SpringIndicator extends FrameLayout implements PageIndicator {
 
             // x
             float headX = 1f;
+            float acceleration = 0.5f;
+            float headMoveOffset = 0.6f;
             if (positionOffset < headMoveOffset) {
                 float positionOffsetTemp = positionOffset / headMoveOffset;
                 headX = (float) ((Math.atan(positionOffsetTemp * acceleration * 2 - acceleration) + (Math.atan(acceleration))) / (2 * (Math.atan(acceleration))));
             }
             springView.getHeadPoint().setX(getTabX(position) - headX * getPositionDistance(position));
             float footX = 0f;
+            float footMoveOffset = 1 - headMoveOffset;
             if (positionOffset > footMoveOffset) {
                 float positionOffsetTemp = (positionOffset - footMoveOffset) / (1 - footMoveOffset);
                 footX = (float) ((Math.atan(positionOffsetTemp * acceleration * 2 - acceleration) + (Math.atan(acceleration))) / (2 * (Math.atan(acceleration))));

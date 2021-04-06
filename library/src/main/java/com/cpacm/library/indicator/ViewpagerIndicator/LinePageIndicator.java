@@ -15,6 +15,7 @@
  */
 package com.cpacm.library.indicator.ViewpagerIndicator;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -23,9 +24,11 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewConfigurationCompat;
 import androidx.viewpager.widget.ViewPager;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -138,8 +141,8 @@ public class LinePageIndicator extends View implements PageIndicator {
     }
 
     public void setStrokeWidth(float lineHeight) {
-        mPaintSelected.setStrokeWidth(lineHeight);
-        mPaintUnselected.setStrokeWidth(lineHeight);
+        mPaintSelected.setStrokeWidth(lineHeight * 1.0f);
+        mPaintUnselected.setStrokeWidth(lineHeight * 1.0f);
         invalidate();
     }
 
@@ -198,6 +201,7 @@ public class LinePageIndicator extends View implements PageIndicator {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (super.onTouchEvent(ev)) {

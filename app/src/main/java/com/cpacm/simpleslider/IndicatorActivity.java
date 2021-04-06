@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2016 cpacm
+ *  Copyright (C) 2020 cpacm
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,8 +17,11 @@
 package com.cpacm.simpleslider;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -33,13 +36,6 @@ import com.cpacm.library.transformers.ZoomOutSlideTransformer;
 
 public class IndicatorActivity extends AppCompatActivity {
 
-    private SimpleViewPager simpleSliderLayout;
-    private CirclePageIndicator circlePageIndicator;
-    private IconPageIndicator iconPageIndicator;
-    private LinePageIndicator linePageIndicator;
-    private UnderlinePageIndicator underlinePageIndicator;
-    private SpringIndicator springIndicator;
-
     private static final int[] ICONS = new int[]{
             R.drawable.perm_group_calendar,
             R.drawable.perm_group_camera,
@@ -51,28 +47,28 @@ public class IndicatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indicator);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        simpleSliderLayout = (SimpleViewPager) findViewById(R.id.simple_slider);
+        SimpleViewPager simpleSliderLayout = findViewById(R.id.simple_slider);
         simpleSliderLayout.setAdapter(new BasicPagerAdapter(this));
         simpleSliderLayout.setPageTransformer(new ZoomOutSlideTransformer());//翻页动画
 
-        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circle_indicator);
+        CirclePageIndicator circlePageIndicator = findViewById(R.id.circle_indicator);
         circlePageIndicator.setViewPager(simpleSliderLayout);
 
-        iconPageIndicator = (IconPageIndicator) findViewById(R.id.icon_indicator);
+        IconPageIndicator iconPageIndicator = findViewById(R.id.icon_indicator);
         iconPageIndicator.setIconRes(ICONS);
         iconPageIndicator.setViewPager(simpleSliderLayout);
 
-        linePageIndicator = (LinePageIndicator) findViewById(R.id.line_indicator);
+        LinePageIndicator linePageIndicator = findViewById(R.id.line_indicator);
         linePageIndicator.setViewPager(simpleSliderLayout);
 
-        underlinePageIndicator = (UnderlinePageIndicator) findViewById(R.id.underline_indicator);
+        UnderlinePageIndicator underlinePageIndicator = findViewById(R.id.underline_indicator);
         underlinePageIndicator.setViewPager(simpleSliderLayout);
 
-        springIndicator = (SpringIndicator) findViewById(R.id.spring_indicator);
+        SpringIndicator springIndicator = findViewById(R.id.spring_indicator);
         springIndicator.setViewPager(simpleSliderLayout);
     }
 

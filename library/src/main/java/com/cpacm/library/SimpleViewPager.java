@@ -2,10 +2,12 @@ package com.cpacm.library;
 
 import android.content.Context;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.Interpolator;
@@ -66,9 +68,6 @@ public class SimpleViewPager extends ViewPager {
 
     /**
      * speed settings for page
-     *
-     * @param period
-     * @param interpolator
      */
     public void setSliderTransformDuration(int period, Interpolator interpolator) {
         try {
@@ -76,7 +75,7 @@ public class SimpleViewPager extends ViewPager {
             mScroller.setAccessible(true);
             FixedSpeedScroller scroller = new FixedSpeedScroller(getContext(), interpolator, period);
             mScroller.set(this, scroller);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }
@@ -185,8 +184,6 @@ public class SimpleViewPager extends ViewPager {
 
     /**
      * 返回真实位置
-     *
-     * @return
      */
     public int getRealItem() {
         return infinitePagerAdapter.getRealPosition(getCurrentItem());
