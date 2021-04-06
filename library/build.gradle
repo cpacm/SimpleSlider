@@ -3,17 +3,16 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = '2.3.0'
+version = '2.3.1'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 28
-        versionCode 10
-        versionName "2.3.0"
+        minSdkVersion 14
+        targetSdkVersion 30
+        versionCode 11
+        versionName "2.3.1"
     }
     buildTypes {
         release {
@@ -25,8 +24,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 }
 
 task sourcesJar(type: Jar) {

@@ -17,10 +17,15 @@
 package com.cpacm.simpleslider;
 
 import android.content.Intent;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,19 +48,15 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         Intent i = new Intent();
-        switch (view.getId()) {
-            case R.id.basic:
-                i.setClass(this, BasicActivity.class);
-                startActivity(i);
-                break;
-            case R.id.transform:
-                i.setClass(this, TransformActivity.class);
-                startActivity(i);
-                break;
-            case R.id.indicator:
-                i.setClass(this, IndicatorActivity.class);
-                startActivity(i);
-                break;
+        if (view.getId() == R.id.basic) {
+            i.setClass(this, BasicActivity.class);
+            startActivity(i);
+        } else if (view.getId() == R.id.transform) {
+            i.setClass(this, TransformActivity.class);
+            startActivity(i);
+        } else if (view.getId() == R.id.indicator) {
+            i.setClass(this, IndicatorActivity.class);
+            startActivity(i);
         }
     }
 
