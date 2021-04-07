@@ -1,4 +1,9 @@
-# Simple Slider
+Simple Slider
+=====
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.cpacm.simpleslider/simpleslider/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.cpacm.simpleslider/simpleslider)
+
+## Intro
 
 I wrote this library just because I want a lightweight slider.
 >Use your own imageloader;  

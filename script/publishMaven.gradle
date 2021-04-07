@@ -23,7 +23,7 @@
  * For faster runs add: -x check when building Glide.
  */
 
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 version = VERSION_NAME
@@ -60,67 +60,53 @@ def getRepositoryPassword() {
     return hasProperty('PASSWORD') ? PASSWORD : (hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : '')
 }
 
+def configurePom(pom) {
+    pom.name = POM_NAME
+    pom.packaging = POM_PACKAGING
+    pom.description = POM_DESCRIPTION
+    pom.url = POM_URL
+
+    pom.scm {
+        url = POM_SCM_URL
+        connection = POM_SCM_CONNECTION
+        developerConnection = POM_SCM_DEV_CONNECTION
+    }
+
+    pom.licenses {
+        license {
+            name = POM_LICENCE_NAME
+            url = POM_LICENCE_URL
+            distribution = POM_LICENCE_DIST
+        }
+    }
+
+    pom.developers {
+        developer {
+            id = POM_DEVELOPER_ID
+            name = POM_DEVELOPER_NAME
+        }
+    }
+}
+
 afterEvaluate { project ->
-    def isAndroidProject = project.plugins.hasPlugin('com.android.application') || project.plugins.hasPlugin('com.android.library')
-    // To avoid uploading the default empty jar artifact in the project root directory, we use a custom
-    // configuration to specify which artifacts we want to upload.
-    uploadArchives {
+    publishing {
         repositories {
-            mavenDeployer {
-                // allow uploading through FTP protocol with the following command:
-                // gradle uploadArchives -PSNAPSHOT_REPOSITORY_URL=ftp://host/repo/path -PUSERNAME=uname -PPASSWORD=passwd
-                configuration = configurations.create('deployerJars')
-                configuration.dependencies.add dependencies.create('org.apache.maven.wagon:wagon-ftp:2.2')
+            maven {
+                def releasesRepoUrl = getReleaseRepositoryUrl()
+                def snapshotsRepoUrl = getSnapshotRepositoryUrl()
+                url = isReleaseBuild() ? releasesRepoUrl : snapshotsRepoUrl
 
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                pom.groupId = GROUP
-                pom.artifactId = POM_ARTIFACT_ID
-                pom.version = VERSION_NAME
-
-                repository(url: getReleaseRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
-                snapshotRepository(url: getSnapshotRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
-
-                pom.whenConfigured { pom ->
-                    pom.packaging = POM_PACKAGING
-                }
-
-                pom.project {
-                    name = POM_NAME
-                    description = POM_DESCRIPTION
-                    url = POM_URL
-
-                    scm {
-                        url POM_SCM_URL
-                        connection POM_SCM_CONNECTION
-                        developerConnection POM_SCM_DEV_CONNECTION
-                    }
-
-                    licenses {
-                        license {
-                            name = POM_LICENCE_NAME
-                            url = POM_LICENCE_URL
-                            distribution = POM_LICENCE_DIST
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id = POM_DEVELOPER_ID
-                            name = POM_DEVELOPER_NAME
-                            email = POM_DEVELOPER_EMAIL
-                        }
-                    }
+                credentials(PasswordCredentials) {
+                    username = getRepositoryUsername()
+                    password = getRepositoryPassword()
                 }
             }
         }
     }
 
-    if (isAndroidProject) {
+    if (project.getPlugins().hasPlugin('com.android.application') ||
+            project.getPlugins().hasPlugin('com.android.library')) {
+
         task androidJavadocs(type: Javadoc) {
             source = android.sourceSets.main.java.source
             classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -153,8 +139,10 @@ afterEvaluate { project ->
             }
         }
     }
+
     artifacts {
-        if (isAndroidProject) {
+        if (project.getPlugins().hasPlugin('com.android.application') ||
+                project.getPlugins().hasPlugin('com.android.library')) {
             archives androidSourcesJar
             archives androidJavadocsJar
         }
@@ -166,11 +154,19 @@ afterEvaluate { project ->
         }
     }
 
-    signing {
-        required { isReleaseBuild() && gradle.taskGraph.hasTask('uploadArchives') }
-        sign configurations.archives
+    publishing.publications.all { publication ->
+        publication.groupId = GROUP
+        publication.version = VERSION_NAME
+
+        publication.artifact androidSourcesJar
+        publication.artifact androidJavadocsJar
+
+        configurePom(publication.pom)
     }
 
-    logger.info("Published artifacts in ${configurations.archives}:")
-    configurations.archives.artifacts.files.files.each { logger.info("\t$it") }
+    signing {
+        publishing.publications.all { publication ->
+            sign publication
+        }
+    }
 }
