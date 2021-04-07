@@ -22,8 +22,13 @@ I wrote this library just because I want a lightweight slider.
 
 ### Gradle
 ```groovy
+repositories {
+  google()
+  mavenCentral()
+}
+
 dependencies {
-    implementation 'com.cpacm.simpleslider:library:2.3.0'
+    implementation 'io.github.cpacm:simpleslider:2.3.2'
 }
 ```
 > Compile with Android 28 and androidx 
