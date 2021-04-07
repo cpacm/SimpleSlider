@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 
-version = '2.3.1'
-
 android {
     compileSdkVersion 30
 
@@ -26,48 +24,5 @@ dependencies {
 }
 
 
-
-//group = 'com.cpacm.simpleslider'
-//install {
-//    repositories.mavenInstaller {
-//        pom.project {
-//            packaging 'aar'
-//            groupId 'com.cpacm.simpleslider' //自己定义的组名
-//            artifactId 'library'
-//
-//            name 'simpleslider'
-//            description 'A simple slider allows you to easily use.'
-//            url 'https://github.com/cpacm/SimpleSlider'
-//            inceptionYear '2017'
-//
-//            licenses {
-//                license {
-//                    name 'The Apache Software License, Version 2.0'
-//                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//                    distribution 'repo'
-//                }
-//            }
-//            scm {
-//                connection 'https://github.com/cpacm/SimpleSlider.git'
-//                url 'https://github.com/cpacm/SimpleSlider'
-//
-//            }
-//            developers {
-//                developer {
-//                    name 'cpacm'
-//                    email 'shenliming1013@gmail.com'
-//                }
-//            }
-//        }
-//
-//    }
-//}
-
-// Bintray
-
-//获取local.propertes的信息
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-
+apply from: "${rootProject.projectDir}/script/upload.gradle"
 

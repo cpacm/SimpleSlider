@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 /**
  * A PagerAdapter that wraps around another PagerAdapter to handle paging wrap-around.
- * <p/>
  */
 public class InfinitePagerAdapter extends PagerAdapter {
 
